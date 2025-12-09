@@ -20,7 +20,7 @@ export default function LoginPage() {
       navigate('/buecher');
     } catch (err) {
       console.error(err);
-      setError('Login fehlgeschlagen. Überprüfe Benutzername (admin) und Passwort (p).');
+      setError('Login fehlgeschlagen. Überprüfe den Benutzernamen und das Passwort.');
     }
   };
 
