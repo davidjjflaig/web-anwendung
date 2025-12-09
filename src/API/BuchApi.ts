@@ -12,7 +12,7 @@ type Abbildung = {
   beschriftung: string;
   contentType: string;
 };
-type Buch = {
+export type Buch = {
   id: number;
   isbn: string;
   rating: number;
@@ -55,7 +55,7 @@ export async function findById(id: number): Promise<Buch> {
   const buch: Buch = await response.json();
   return buch;
 }
-export async function find(query: Record<string, string>): Promise<Buch[]> {
+export async function find(query: Record<string, string> = {}): Promise<Buch[]> {
   const params = new URLSearchParams(query);
   const response = await fetch(`${baseURL}?${params.toString()}`);
   if (!response.ok) {
