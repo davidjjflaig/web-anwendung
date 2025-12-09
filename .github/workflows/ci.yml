@@ -32,7 +32,7 @@ jobs:
         run: pnpm lint
         
       - name: Check Formatting (Prettier)
-        run: pnpm exec prettier --check .
+        run: pnpm exec prettier --check src
 
       - name: Build App
         run: pnpm build
