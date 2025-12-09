@@ -11,12 +11,12 @@ export default function LoginPage() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    
+
     try {
       const token = await getToken({ username, password });
-      
+
       localStorage.setItem('token', token);
-      
+
       navigate('/buecher');
     } catch (err) {
       console.error(err);
@@ -29,27 +29,27 @@ export default function LoginPage() {
       <div className="card w-96 bg-base-100 shadow-xl border border-base-200">
         <div className="card-body">
           <h2 className="card-title justify-center mb-4">Anmelden</h2>
-          
+
           <form onSubmit={handleLogin} className="form-control gap-4">
             <div>
               <label className="label">
                 <span className="label-text">Benutzername</span>
               </label>
-              <input 
-                type="text" 
-                className="input input-bordered w-full" 
+              <input
+                type="text"
+                className="input input-bordered w-full"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
             </div>
-            
+
             <div>
               <label className="label">
                 <span className="label-text">Passwort</span>
               </label>
-              <input 
-                type="password" 
-                className="input input-bordered w-full" 
+              <input
+                type="password"
+                className="input input-bordered w-full"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -62,7 +62,9 @@ export default function LoginPage() {
             )}
 
             <div className="card-actions justify-end mt-4">
-              <button type="submit" className="btn btn-primary w-full">Login</button>
+              <button type="submit" className="btn btn-primary w-full">
+                Login
+              </button>
             </div>
           </form>
         </div>

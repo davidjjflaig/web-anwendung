@@ -63,7 +63,6 @@ export default function BookDetails() {
         </figure>
 
         <div className="card-body lg:w-2/3">
-          
           <div className="flex flex-col gap-1">
             <div className="flex justify-between items-start">
               <h2 className="card-title text-4xl font-bold">{buch.titel?.title}</h2>
@@ -71,24 +70,23 @@ export default function BookDetails() {
                 {buch.art}
               </div>
             </div>
-            
+
             {buch.titel?.untertitel && (
-              <p className="text-xl text-base-content/70 italic">
-                {buch.titel.untertitel}
-              </p>
+              <p className="text-xl text-base-content/70 italic">{buch.titel.untertitel}</p>
             )}
           </div>
 
           <div className="divider my-2"></div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            
             <div>
               <div className="stat-title text-lg">Preis</div>
               <div className="stat-value text-primary mb-2">
-                {new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(buch.preis)}
+                {new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(
+                  buch.preis,
+                )}
               </div>
-              
+
               <div className={`alert ${buch.lieferbar ? 'alert-success' : 'alert-warning'} py-2`}>
                 <span className="font-bold text-sm">
                   {buch.lieferbar ? '✅ Sofort lieferbar' : '⚠️ Derzeit nicht lieferbar'}
@@ -101,17 +99,17 @@ export default function BookDetails() {
                 <span className="font-semibold opacity-70">ISBN:</span>
                 <span className="font-mono">{buch.isbn}</span>
               </div>
-              
+
               <div className="flex justify-between border-b border-base-200 pb-1">
                 <span className="font-semibold opacity-70">Bewertung:</span>
                 <div className="rating rating-sm rating-half">
                   {[1, 2, 3, 4, 5].map((star) => (
-                    <input 
-                      key={star} 
-                      type="radio" 
-                      className="mask mask-star-2 bg-orange-400 cursor-default" 
-                      checked={star <= buch.rating} 
-                      readOnly 
+                    <input
+                      key={star}
+                      type="radio"
+                      className="mask mask-star-2 bg-orange-400 cursor-default"
+                      checked={star <= buch.rating}
+                      readOnly
                     />
                   ))}
                 </div>
@@ -124,7 +122,12 @@ export default function BookDetails() {
 
               {buch.homepage && (
                 <div className="pt-2">
-                  <a href={buch.homepage} target="_blank" rel="noreferrer" className="link link-primary">
+                  <a
+                    href={buch.homepage}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="link link-primary"
+                  >
                     Zur Verlagshomepage ↗
                   </a>
                 </div>
