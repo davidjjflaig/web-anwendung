@@ -9,7 +9,7 @@ type Titel = {
 };
 type Abbildung = {
   id: number;
-  besxhriftung: string;
+  beschriftung: string;
   contentType: string;
 };
 type Buch = {
@@ -31,10 +31,10 @@ type TitelCreate = {
   untertitel: string;
 };
 type AbbildungCreate = {
-  besxhriftung: string;
+  beschriftung: string;
   contentType: string;
 };
-type BuchCreate = {
+export type BuchCreate = {
   isbn: string;
   rating: number;
   art: BuchArt;
