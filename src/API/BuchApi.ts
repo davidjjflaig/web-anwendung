@@ -6,115 +6,119 @@ type Titel = {
   id: number;
   title: string;
   untertitel: string;
-}
+};
 type Abbildung = {
-    id: number;
-    besxhriftung: string;
-    contentType: string;
-}
+  id: number;
+  besxhriftung: string;
+  contentType: string;
+};
 type Buch = {
-    id: number;
-    isbn: string;
-    rating: number;
-    art: BuchArt;
-    preis: number;
-    rabatt: number;
-    lieferbar: boolean;
-    datum: Date;
-    homepage: string;
-    schlagwoerter: string[];
-    titel: Titel;
-    abbildungen: Abbildung[];
-}
+  id: number;
+  isbn: string;
+  rating: number;
+  art: BuchArt;
+  preis: number;
+  rabatt: number;
+  lieferbar: boolean;
+  datum: Date;
+  homepage: string;
+  schlagwoerter: string[];
+  titel: Titel;
+  abbildungen: Abbildung[];
+};
 type TitelCreate = {
-    title: string;
-    untertitel: string;
-}
+  title: string;
+  untertitel: string;
+};
 type AbbildungCreate = {
-    besxhriftung: string;
-    contentType: string;
-}
+  besxhriftung: string;
+  contentType: string;
+};
 type BuchCreate = {
-    isbn: string;
-    rating: number;
-    art: BuchArt;
-    preis: number;
-    rabatt: number;
-    lieferbar: boolean;
-    datum: Date;
-    homepage: string;
-    schlagwoerter: string[];
-    titel: TitelCreate;
-    abbildungen: AbbildungCreate[];
-}
+  isbn: string;
+  rating: number;
+  art: BuchArt;
+  preis: number;
+  rabatt: number;
+  lieferbar: boolean;
+  datum: Date;
+  homepage: string;
+  schlagwoerter: string[];
+  titel: TitelCreate;
+  abbildungen: AbbildungCreate[];
+};
 export async function findById(id: number): Promise<Buch> {
-    const response = await fetch(`${baseURL}/${id}`);
-    if (!response.ok) {
-        throw new Error(`Fehler beim Laden des Buchs mit der ID ${id}: ${response.statusText}`);
-    }
-    const buch: Buch = await response.json();
-    return buch;
+  const response = await fetch(`${baseURL}/${id}`);
+  if (!response.ok) {
+    throw new Error(`Fehler beim Laden des Buchs mit der ID ${id}: ${response.statusText}`);
+  }
+  const buch: Buch = await response.json();
+  return buch;
 }
 export async function find(query: Record<string, string>): Promise<Buch[]> {
-    const params = new URLSearchParams(query);
-    const response = await fetch(`${baseURL}?${params.toString()}`);
-    if (!response.ok) {
-        throw new Error(`Fehler beim Laden der Bücher: ${response.statusText}`);
-    }
-    const buecher: Buch[] = await response.json();
-    return buecher;
+  const params = new URLSearchParams(query);
+  const response = await fetch(`${baseURL}?${params.toString()}`);
+  if (!response.ok) {
+    throw new Error(`Fehler beim Laden der Bücher: ${response.statusText}`);
+  }
+  const buecher: Buch[] = await response.json();
+  return buecher;
 }
-export async function getToken(user: {username: string; password: string}): Promise<string> {
-    const response = await fetch('https://localhost:3000/auth/token', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(user),
-    });
-    if (!response.ok) {
-        throw new Error(`Fehler beim Abrufen des Tokens: ${response.statusText}`);
-    }
-    const data = await response.json();
-    return data.access_token;
+export async function getToken(user: { username: string; password: string }): Promise<string> {
+  const response = await fetch('https://localhost:3000/auth/token', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(user),
+  });
+  if (!response.ok) {
+    throw new Error(`Fehler beim Abrufen des Tokens: ${response.statusText}`);
+  }
+  const data = await response.json();
+  return data.access_token;
 }
 export async function createBuch(buch: BuchCreate, token: string): Promise<Response> {
-    const response = await fetch(`${baseURL}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
-        },
-        body: JSON.stringify(buch),
-    });
-    if (!response.ok) {
-        throw new Error(`Fehler beim Erstellen des Buchs: ${response.statusText}`);
-    }
-    return response;
+  const response = await fetch(`${baseURL}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(buch),
+  });
+  if (!response.ok) {
+    throw new Error(`Fehler beim Erstellen des Buchs: ${response.statusText}`);
+  }
+  return response;
 }
-export async function updateBuch(id: number, buch: Partial<BuchCreate>, token: string): Promise<Response> {
-    const response = await fetch(`${baseURL}/${id}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
-        },
-        body: JSON.stringify(buch),
-    });
-    if (!response.ok) {
-        throw new Error(`Fehler beim Aktualisieren des Buchs mit der ID ${id}: ${response.statusText}`);
-    }
-    return response;
+export async function updateBuch(
+  id: number,
+  buch: Partial<BuchCreate>,
+  token: string,
+): Promise<Response> {
+  const response = await fetch(`${baseURL}/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(buch),
+  });
+  if (!response.ok) {
+    throw new Error(`Fehler beim Aktualisieren des Buchs mit der ID ${id}: ${response.statusText}`);
+  }
+  return response;
 }
 export async function deleteBuch(id: number, token: string): Promise<Response> {
-    const response = await fetch(`${baseURL}/${id}`, {
-        method: 'DELETE',
-        headers: {
-            'Authorization': `Bearer ${token}`,
-        },
-    });
-    if (!response.ok) {
-        throw new Error(`Fehler beim Löschen des Buchs mit der ID ${id}: ${response.statusText}`);
-    }
-    return response;
+  const response = await fetch(`${baseURL}/${id}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  if (!response.ok) {
+    throw new Error(`Fehler beim Löschen des Buchs mit der ID ${id}: ${response.statusText}`);
+  }
+  return response;
 }
