@@ -26,24 +26,9 @@ export type Buch = {
   titel: Titel;
   abbildungen: Abbildung[];
 };
-type TitelCreate = {
-  title: string;
-  untertitel: string;
-};
-type AbbildungCreate = {
-  beschriftung: string;
-  contentType: string;
-};
-export type BuchCreate = {
-  isbn: string;
-  rating: number;
-  art: BuchArt;
-  preis: number;
-  rabatt: number;
-  lieferbar: boolean;
-  datum: Date;
-  homepage: string;
-  schlagwoerter: string[];
+type TitelCreate = Omit<Titel, 'id'>;
+type AbbildungCreate = Omit<Abbildung, 'id'>;
+export type BuchCreate = Omit<Buch, 'id'> & {
   titel: TitelCreate;
   abbildungen: AbbildungCreate[];
 };
