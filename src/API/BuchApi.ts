@@ -28,7 +28,7 @@ export type Buch = {
 };
 type TitelCreate = Omit<Titel, 'id'>;
 type AbbildungCreate = Omit<Abbildung, 'id'>;
-export type BuchCreate = Omit<Buch, 'id'> & {
+export type BuchCreate = Omit<Buch, 'id' | 'titel' | 'abbildungen'> & {
   titel: TitelCreate;
   abbildungen: AbbildungCreate[];
 };
