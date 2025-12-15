@@ -1,6 +1,6 @@
 
 import { describe, test, expect } from 'vitest';
-import { find, findById, createBuch, getToken, BuchCreate, updateBuch, deleteBuch } from '../../src/api/buchApi';
+import { find, findById, createBuch, getToken, BuchCreate, updateBuch, deleteBuch, BuchPutDto } from '../../src/api/buchApi';
 
 
 describe('Buch API Tests', () => {
@@ -82,12 +82,14 @@ describe('Buch API Tests', () => {
   });
   test.concurrent('should update an existing book', async () => {
     const idToUpdate = 1;
-    const updatedBuchData: Partial<BuchCreate> = {
+    const updatedBuchData: Partial<BuchPutDto> = {
         preis: 24.99,
         rabatt: 10,
     };
+    const ifMatch = '0'; 
+    
     const token = await getToken({ username: 'admin', password: 'p' });
-    const updatedBuch = await updateBuch(idToUpdate, updatedBuchData, token);
+    const updatedBuch = await updateBuch(idToUpdate, updatedBuchData, token, ifMatch);
 
     expect(updatedBuch).toBeDefined();
     expect(updatedBuch.status).toBe(204);

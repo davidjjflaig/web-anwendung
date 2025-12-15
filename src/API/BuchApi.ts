@@ -23,16 +23,17 @@ export type Buch = {
   datum: Date;
   homepage: string;
   schlagwoerter: string[];
+  version?: number;
   titel: Titel;
   abbildungen: Abbildung[];
 };
 type TitelCreate = Omit<Titel, 'id'>;
 type AbbildungCreate = Omit<Abbildung, 'id'>;
-export type BuchCreate = Omit<Buch, 'id' | 'titel' | 'abbildungen'> & {
+export type BuchCreate = Omit<Buch, 'id' | 'titel' | 'abbildungen' | 'version'> & {
   titel: TitelCreate;
   abbildungen: AbbildungCreate[];
 };
-type BuchPutDto = Omit<BuchCreate, 'titel' | 'abbildungen'>;
+export type BuchPutDto = Omit<BuchCreate, 'titel' | 'abbildungen'>;
 export async function findById(id: number): Promise<Buch> {
   const response = await fetch(`${baseURL}/${id}`);
   if (!response.ok) {
@@ -82,6 +83,7 @@ export async function updateBuch(
   id: number,
   buch: Partial<BuchPutDto>,
   token: string,
+  ifMatch?: string,
 ): Promise<Response> {
   const original = await findById(id);
   const buchPutDto = buchtoBuchPutDto(original);
@@ -91,6 +93,7 @@ export async function updateBuch(
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
+      'If-Match': ifMatch ?? original.version?.toString() ?? '0',
     },
     body: JSON.stringify(updatedBuch),
   });
