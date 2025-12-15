@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [main, master]
   pull_request:
-    branches: [ main, master ]
+    branches: [main, master]
 
 jobs:
   build-and-audit:
@@ -30,7 +30,7 @@ jobs:
 
       - name: Lint Code
         run: pnpm lint
-        
+
       - name: Check Formatting (Prettier)
         run: pnpm exec prettier --check src
 

@@ -81,7 +81,6 @@ export default function BookDetails() {
                   buch.preis,
                 )}
               </div>
-              
             </div>
             <div>
               <div className="stat-title">ISBN</div>
