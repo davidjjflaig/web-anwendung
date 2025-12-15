@@ -1,4 +1,4 @@
-const baseURL = 'https://localhost:3000/rest';
+const baseURL = import.meta.env.VITE_API_URL || 'https://localhost:3000/rest';
 
 type BuchArt = 'EPUB' | 'HARDCOVER' | 'PAPERBACK';
 
