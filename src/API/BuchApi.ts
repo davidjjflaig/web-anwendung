@@ -32,7 +32,7 @@ export type BuchCreate = Omit<Buch, 'id' | 'titel' | 'abbildungen'> & {
   titel: TitelCreate;
   abbildungen: AbbildungCreate[];
 };
-type BuchPutDto = Omit<BuchCreate, 'titel'|'abbildungen'>;
+type BuchPutDto = Omit<BuchCreate, 'titel' | 'abbildungen'>;
 export async function findById(id: number): Promise<Buch> {
   const response = await fetch(`${baseURL}/${id}`);
   if (!response.ok) {
