@@ -94,7 +94,8 @@ describe('Buch API Tests', () => {
     expect(updatedBuch).toBeDefined();
     expect(updatedBuch.status).toBe(204);
   });
-    test.concurrent('should fail to update a book with invalid id', async () => {
+  
+  test.concurrent('should fail to update a book with invalid id', async () => {
     const invalidId = 9999;
     const updatedBuchData: Partial<BuchCreate> = {
         preis: 24.99,

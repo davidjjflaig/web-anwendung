@@ -79,12 +79,13 @@ export async function createBuch(buch: BuchCreate, token: string): Promise<Respo
   }
   return response;
 }
-export async function updateBuch(
-  id: number,
-  buch: Partial<BuchPutDto>,
-  token: string,
-  ifMatch?: string,
-): Promise<Response> {
+export async function updateBuch(data: {
+  id: number;
+  buch: Partial<BuchPutDto>;
+  token: string;
+  ifMatch?: string;
+}): Promise<Response> {
+  const { id, buch, token, ifMatch } = data;
   const original = await findById(id);
   const buchPutDto = buchtoBuchPutDto(original);
   const updatedBuch = { ...buchPutDto, ...buch };
