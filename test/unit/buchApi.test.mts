@@ -89,7 +89,7 @@ describe('Buch API Tests', () => {
     const ifMatch = '0'; 
     
     const token = await getToken({ username: 'admin', password: 'p' });
-    const updatedBuch = await updateBuch(idToUpdate, updatedBuchData, token, ifMatch);
+    const updatedBuch = await updateBuch({id: idToUpdate, buch: updatedBuchData, token, ifMatch});
 
     expect(updatedBuch).toBeDefined();
     expect(updatedBuch.status).toBe(204);
@@ -102,7 +102,7 @@ describe('Buch API Tests', () => {
         rabatt: 10,
     };
     const token = await getToken({ username: 'admin', password: 'p' });
-    const updatedBuch = await updateBuch(invalidId, updatedBuchData, token);
+    const updatedBuch = await updateBuch({id: invalidId, buch: updatedBuchData, token});
 
     expect(updatedBuch).toBeDefined();
     expect(updatedBuch.status).toBe(404);
