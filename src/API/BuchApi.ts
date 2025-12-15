@@ -32,6 +32,7 @@ export type BuchCreate = Omit<Buch, 'id' | 'titel' | 'abbildungen'> & {
   titel: TitelCreate;
   abbildungen: AbbildungCreate[];
 };
+type BuchPutDto = Omit<BuchCreate, 'titel'|'abbildungen'>;
 export async function findById(id: number): Promise<Buch> {
   const response = await fetch(`${baseURL}/${id}`);
   if (!response.ok) {
@@ -79,16 +80,19 @@ export async function createBuch(buch: BuchCreate, token: string): Promise<Respo
 }
 export async function updateBuch(
   id: number,
-  buch: Partial<BuchCreate>,
+  buch: Partial<BuchPutDto>,
   token: string,
 ): Promise<Response> {
+  const original = await findById(id);
+  const buchPutDto = buchtoBuchPutDto(original);
+  const updatedBuch = { ...buchPutDto, ...buch };
   const response = await fetch(`${baseURL}/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify(buch),
+    body: JSON.stringify(updatedBuch),
   });
   if (!response.ok) {
     throw new Error(`Fehler beim Aktualisieren des Buchs mit der ID ${id}: ${response.statusText}`);
@@ -106,4 +110,17 @@ export async function deleteBuch(id: number, token: string): Promise<Response> {
     throw new Error(`Fehler beim Löschen des Buchs mit der ID ${id}: ${response.statusText}`);
   }
   return response;
+}
+export function buchtoBuchPutDto(buch: Buch): BuchPutDto {
+  return {
+    isbn: buch.isbn,
+    rating: buch.rating,
+    art: buch.art,
+    preis: buch.preis,
+    rabatt: buch.rabatt,
+    lieferbar: buch.lieferbar,
+    datum: buch.datum,
+    homepage: buch.homepage,
+    schlagwoerter: buch.schlagwoerter,
+  };
 }
