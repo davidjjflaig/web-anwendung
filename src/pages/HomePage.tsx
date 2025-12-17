@@ -26,6 +26,12 @@ export default function HomePage() {
             <p>Ein neues Buch im System erfassen.</p>
           </div>
         </Link>
+        <Link to="/buecher/select" className="card bg-base-100 shadow hover:shadow-lg transition">
+          <div className="card-body">
+            <h2 className="card-title">Buch bearbeiten</h2>
+            <p>Ein vorhandenes Buch zur Bearbeitung auswählen.</p>
+          </div>
+        </Link>
 
         <Link to="/login" className="card bg-base-100 shadow hover:shadow-lg transition">
           <div className="card-body">
