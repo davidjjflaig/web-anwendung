@@ -1,6 +1,6 @@
 const baseURL = import.meta.env.VITE_API_URL || 'https://localhost:3000/rest';
 
-type BuchArt = 'EPUB' | 'HARDCOVER' | 'PAPERBACK';
+export type BuchArt = 'EPUB' | 'HARDCOVER' | 'PAPERBACK';
 
 type Titel = {
   id: number;
