@@ -1,17 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import {
-  findById,
-  updateBuch,
-  buchtoBuchPutDto,
-  type BuchPutDto
-} from '../API/BuchApi';
+import { findById, updateBuch, buchtoBuchPutDto, type BuchPutDto } from '../API/BuchApi';
 import { useParams } from 'react-router-dom';
-
 
 export function EditBookPage() {
   const { id } = useParams<{ id: string }>();
-    if (!id) {
+  if (!id) {
     throw new Error('Keine Buch-ID angegeben');
   }
   const buchId = Number(id);
@@ -37,7 +31,7 @@ export function EditBookPage() {
   const onSubmit = async (data: BuchPutDto) => {
     await updateBuch({
       id: buchId,
-      buch: data, 
+      buch: data,
       token,
     });
     alert('Buch aktualisiert ✅');
@@ -47,21 +41,14 @@ export function EditBookPage() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 max-w-xl">
-
-      <input
-        className="input input-bordered w-full"
-        {...register('isbn', { required: true })}
-      />
+      <input className="input input-bordered w-full" {...register('isbn', { required: true })} />
       <input
         type="number"
         className="input input-bordered w-full"
         {...register('rating', { valueAsNumber: true, min: 1, max: 5 })}
       />
 
-      <select
-        className="select select-bordered w-full"
-        {...register('art')}
-      >
+      <select className="select select-bordered w-full" {...register('art')}>
         <option value="HARDCOVER">Hardcover</option>
         <option value="PAPERBACK">Paperback</option>
         <option value="EPUB">EPUB</option>
@@ -90,18 +77,11 @@ export function EditBookPage() {
       <input
         className="input input-bordered w-full"
         {...register('schlagwoerter', {
-          setValueAs: (v) =>
-            typeof v === 'string'
-              ? v.split(',').map((s) => s.trim())
-              : v,
+          setValueAs: (v) => (typeof v === 'string' ? v.split(',').map((s) => s.trim()) : v),
         })}
       />
 
-      <button
-        type="submit"
-        className="btn btn-primary"
-        disabled={!isDirty}
-      >
+      <button type="submit" className="btn btn-primary" disabled={!isDirty}>
         Speichern
       </button>
     </form>
