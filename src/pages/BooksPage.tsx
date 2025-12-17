@@ -51,7 +51,6 @@ export default function BooksPage() {
                 )}
               </h2>
 
-              {}
               {buch.titel?.untertitel && (
                 <p className="text-sm opacity-70 italic">{buch.titel.untertitel}</p>
               )}
