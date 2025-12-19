@@ -7,6 +7,10 @@ export default function BooksPage() {
   const [buecher, setBuecher] = useState<Buch[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [search, setSearch] = useState('');
+  const filteredBuecher = buecher.filter((buch) =>
+    (buch.titel?.title ?? '').toLowerCase().includes(search.toLowerCase()),
+  );
 
   useEffect(() => {
     const ladeBuecher = async () => {
@@ -31,11 +35,20 @@ export default function BooksPage() {
     <div>
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">Verfügbare Bücher</h1>
-        <div className="badge badge-neutral">{buecher.length} Bücher gefunden</div>
+        <div className="badge badge-neutral">{filteredBuecher.length} Bücher gefunden</div>
+      </div>
+      <div className="mb-6 max-w-md">
+        <input
+          type="text"
+          placeholder="Nach Titel suchen..."
+          className="input input-bordered w-full"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {buecher.map((buch) => (
+        {filteredBuecher.map((buch) => (
           <div
             key={buch.id}
             className="card bg-base-100 shadow-xl border border-base-200 hover:shadow-2xl transition-shadow"
