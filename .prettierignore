@@ -1,0 +1,6 @@
+# .prettierignore
+.github
+.github/**/*
+dist
+build
+coverage
