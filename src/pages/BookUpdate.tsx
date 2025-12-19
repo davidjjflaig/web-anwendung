@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { findById, updateBuch, buchtoBuchPutDto, type BuchPutDto } from '../API/BuchApi';
 import { useParams } from 'react-router-dom';
+import { BookLoader } from '../components/BookLoader';
 
 export function EditBookPage() {
   const { id } = useParams<{ id: string }>();
@@ -37,7 +38,7 @@ export function EditBookPage() {
     alert('Buch aktualisiert ✅');
   };
 
-  if (loading) return <p>Lade Buch …</p>;
+  if (loading) return <BookLoader />;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 max-w-xl">

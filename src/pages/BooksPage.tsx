@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { find, type Buch } from '../API/BuchApi';
+import { BookLoader } from '../components/BookLoader';
+import { ErrorAlert } from '../components/ErrorAlert';
 
 export default function BooksPage() {
   const [buecher, setBuecher] = useState<Buch[]>([]);
@@ -13,7 +15,7 @@ export default function BooksPage() {
         setBuecher(data);
       } catch (err) {
         console.error(err);
-        setError('Fehler beim Laden der Bücher. (Backend läuft? Zertifikat akzeptiert?)');
+        setError('Fehler beim Laden der Bücher!');
       } finally {
         setLoading(false);
       }
@@ -24,11 +26,9 @@ export default function BooksPage() {
 
   if (loading)
     return (
-      <div className="text-center p-10">
-        <span className="loading loading-spinner loading-lg"></span>
-      </div>
+      <BookLoader />
     );
-  if (error) return <div className="alert alert-error my-4">{error}</div>;
+  if (error) return <ErrorAlert message={error} />;
 
   return (
     <div>
