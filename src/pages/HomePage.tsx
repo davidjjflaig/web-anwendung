@@ -1,3 +1,4 @@
+import { BookOpenIcon, PencilSquareIcon, PlusCircleIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
 
 export default function HomePage() {
@@ -15,6 +16,7 @@ export default function HomePage() {
       <section className="grid gap-6 w-full max-w-4xl md:grid-cols-3">
         <Link to="/buecher" className="card bg-base-100 shadow hover:shadow-lg transition">
           <div className="card-body">
+            <BookOpenIcon className="h-10 w-10 text-primary mb-2" />
             <h2 className="card-title">Bücher suchen</h2>
             <p>Alle vorhandenen Bücher anzeigen und filtern.</p>
           </div>
@@ -22,12 +24,14 @@ export default function HomePage() {
 
         <Link to="/buecher/neu" className="card bg-base-100 shadow hover:shadow-lg transition">
           <div className="card-body">
+            <PlusCircleIcon className="h-10 w-10 text-primary mb-2" />
             <h2 className="card-title">Neues Buch anlegen</h2>
             <p>Ein neues Buch im System erfassen.</p>
           </div>
         </Link>
         <Link to="/buecher/select" className="card bg-base-100 shadow hover:shadow-lg transition">
           <div className="card-body">
+            <PencilSquareIcon className="h-10 w-10 text-primary mb-2" />
             <h2 className="card-title">Buch bearbeiten</h2>
             <p>Ein vorhandenes Buch zur Bearbeitung auswählen.</p>
           </div>
@@ -35,6 +39,7 @@ export default function HomePage() {
 
         <Link to="/login" className="card bg-base-100 shadow hover:shadow-lg transition">
           <div className="card-body">
+            <UserCircleIcon className="h-10 w-10 text-primary mb-2" />
             <h2 className="card-title">Login</h2>
             <p>Am System anmelden, um geschützte Funktionen zu nutzen.</p>
           </div>

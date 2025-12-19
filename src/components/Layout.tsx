@@ -1,3 +1,4 @@
+import { BookOpenIcon } from '@heroicons/react/24/outline';
 import type { ReactNode } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
@@ -15,7 +16,7 @@ export default function Layout({ children }: LayoutProps) {
         <div className="container mx-auto">
           <div className="flex-1">
             <Link to="/" className="btn btn-ghost text-2xl font-black text-primary gap-2">
-              <span className="text-3xl">📚</span>
+              <BookOpenIcon className="h-8 w-8" />
               <span>BuchApp</span>
             </Link>
           </div>
@@ -65,7 +66,7 @@ export default function Layout({ children }: LayoutProps) {
 
       <footer className="footer footer-center p-10 bg-base-300 text-base-content rounded-t-2xl">
         <aside>
-          <span className="text-5xl">📖</span>
+          <BookOpenIcon className="h-10 w-10 text-primary" />
           <p className="font-bold text-lg">
             By Mika Stolz, Kenan Seckanovic, Muhammed Güner & David Flaig
             <br />
