@@ -24,10 +24,7 @@ export default function BooksPage() {
     ladeBuecher();
   }, []);
 
-  if (loading)
-    return (
-      <BookLoader />
-    );
+  if (loading) return <BookLoader />;
   if (error) return <ErrorAlert message={error} />;
 
   return (
