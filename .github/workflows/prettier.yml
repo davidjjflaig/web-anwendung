@@ -25,7 +25,7 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: pnpm ci || pnpm install
+        run: npm ci || npm install
 
       - name: Run Prettier
         run: npx prettier --write .
