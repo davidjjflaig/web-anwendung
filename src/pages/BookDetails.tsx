@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
-import { findById, deleteBuch, type Buch } from '../API/BuchApi';
+import Cookies from 'js-cookie'; //
+import { findById, deleteBuch, type Buch } from '../API/BuchApi'; //
 
 export default function BookDetails() {
   const { id } = useParams<{ id: string }>();
@@ -15,6 +15,7 @@ export default function BookDetails() {
 
   useEffect(() => {
     if (!id) return;
+
     const ladeBuch = async () => {
       try {
         setLoading(true);
@@ -27,6 +28,7 @@ export default function BookDetails() {
         setLoading(false);
       }
     };
+
     ladeBuch();
   }, [id]);
 
@@ -52,6 +54,7 @@ export default function BookDetails() {
         <span className="loading loading-spinner loading-lg"></span>
       </div>
     );
+  
   if (error || !buch)
     return <div className="alert alert-error">{error || 'Buch nicht gefunden'}</div>;
 
@@ -60,33 +63,68 @@ export default function BookDetails() {
       <button onClick={() => navigate('/buecher')} className="btn btn-ghost mb-4">
         ← Zurück
       </button>
+
       <div className="card lg:card-side bg-base-100 shadow-xl border border-base-200">
         <figure className="bg-base-200 min-h-[300px] lg:w-1/3 flex items-center justify-center">
-          <span className="text-9xl">📖</span>
+          <span className="text-9xl select-none text-base-content/20">📖</span>
         </figure>
+
         <div className="card-body lg:w-2/3">
-          <h2 className="card-title text-4xl font-bold">{buch.titel?.titel}</h2>
-<<<<<<< HEAD
-<<<<<<< HEAD
-          <p className="text-xl italic opacity-70">{buch.titel?.untertitel !== 'null' ? buch.titel?.untertitel : ''}</p>
-=======
-          <p className="text-xl italic opacity-70">
-            {buch.titel?.untertitel !== 'null' ? buch.titel?.untertitel : ''}
-          </p>
-          {/* ... Rest der UI ... */}
->>>>>>> df695048643abf51902f903d51b57f2db93ac37a
-=======
-          <p className="text-xl italic opacity-70">
-            {buch.titel?.untertitel !== 'null' ? buch.titel?.untertitel : ''}
-          </p>
->>>>>>> 8dfe24ef329ca2e6cddca471e957047f120fbab7
+          <div className="flex justify-between items-start">
+            <h2 className="card-title text-4xl font-bold">{buch.titel?.titel}</h2>
+            <div className="badge badge-secondary">{buch.art}</div>
+          </div>
+
+          {buch.titel?.untertitel && buch.titel.untertitel !== 'null' && (
+            <p className="text-xl italic opacity-70">
+              {buch.titel.untertitel}
+            </p>
+          )}
+
+          <div className="divider"></div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <div className="stat-title text-sm uppercase font-bold opacity-50">Preis</div>
+              <div className="stat-value text-primary">
+                {new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(buch.preis)}
+              </div>
+              <div className={`badge ${buch.lieferbar ? 'badge-success' : 'badge-warning'} mt-2`}>
+                {buch.lieferbar ? 'Sofort lieferbar' : 'Derzeit nicht verfügbar'}
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <div>
+                <span className="font-bold opacity-50 block text-xs uppercase">ISBN-13</span>
+                <span className="font-mono text-lg">{buch.isbn}</span>
+              </div>
+              <div>
+                <span className="font-bold opacity-50 block text-xs uppercase">Bewertung</span>
+                <div className="rating rating-sm">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <input 
+                      key={star} 
+                      type="radio" 
+                      className="mask mask-star-2 bg-orange-400 cursor-default" 
+                      checked={star <= buch.rating} 
+                      readOnly 
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className="card-actions justify-end mt-8 gap-2">
             {isAdmin && (
               <button onClick={handleDelete} className="btn btn-error text-white">
                 Löschen
               </button>
             )}
-            <button className="btn btn-primary">In den Warenkorb</button>
+            <button className="btn btn-primary btn-wide" disabled={!buch.lieferbar}>
+              In den Warenkorb
+            </button>
           </div>
         </div>
       </div>
