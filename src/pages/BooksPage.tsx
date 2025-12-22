@@ -74,7 +74,10 @@ export default function BooksPage() {
                 <div className="card-body">
                   <h2 className="card-title text-xl">{buch.titel?.titel || 'Kein Titel'}</h2>
                   <div className="card-actions justify-end mt-4">
-                    <button className="btn btn-sm btn-outline" onClick={() => navigate(`/buecher/${buch.id}`)}>
+                    <button
+                      className="btn btn-sm btn-outline"
+                      onClick={() => navigate(`/buecher/${buch.id}`)}
+                    >
                       Details
                     </button>
                   </div>
@@ -84,9 +87,23 @@ export default function BooksPage() {
           </div>
           <div className="flex justify-center mt-12">
             <div className="join">
-              <button className="join-item btn btn-sm" disabled={data.page.number === 0} onClick={() => ladeDaten(data.page.number)}>«</button>
-              <button className="join-item btn btn-sm no-animation">Seite {data.page.number + 1} / {data.page.totalPages}</button>
-              <button className="join-item btn btn-sm" disabled={data.page.number >= data.page.totalPages - 1} onClick={() => ladeDaten(data.page.number + 2)}>»</button>
+              <button
+                className="join-item btn btn-sm"
+                disabled={data.page.number === 0}
+                onClick={() => ladeDaten(data.page.number)}
+              >
+                «
+              </button>
+              <button className="join-item btn btn-sm no-animation">
+                Seite {data.page.number + 1} / {data.page.totalPages}
+              </button>
+              <button
+                className="join-item btn btn-sm"
+                disabled={data.page.number >= data.page.totalPages - 1}
+                onClick={() => ladeDaten(data.page.number + 2)}
+              >
+                »
+              </button>
             </div>
           </div>
         </>

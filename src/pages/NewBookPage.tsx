@@ -56,11 +56,26 @@ export default function NewBookPage() {
       <h1 className="text-3xl font-bold mb-6">Neues Buch</h1>
       {error && <div className="alert alert-error mb-4">{error}</div>}
       <form onSubmit={handleSubmit} className="card bg-base-100 shadow-xl border p-6 space-y-4">
-        <input className="input input-bordered" placeholder="Titel" onChange={e => setFormData({...formData, title: e.target.value})} />
-        <input className="input input-bordered" placeholder="ISBN" onChange={e => setFormData({...formData, isbn: e.target.value})} />
-        <input type="number" className="input input-bordered" placeholder="Preis" onChange={e => setFormData({...formData, preis: Number(e.target.value)})} />
+        <input
+          className="input input-bordered"
+          placeholder="Titel"
+          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+        />
+        <input
+          className="input input-bordered"
+          placeholder="ISBN"
+          onChange={(e) => setFormData({ ...formData, isbn: e.target.value })}
+        />
+        <input
+          type="number"
+          className="input input-bordered"
+          placeholder="Preis"
+          onChange={(e) => setFormData({ ...formData, preis: Number(e.target.value) })}
+        />
         <div className="card-actions justify-end">
-          <button type="submit" className="btn btn-primary" disabled={loading}>Speichern</button>
+          <button type="submit" className="btn btn-primary" disabled={loading}>
+            Speichern
+          </button>
         </div>
       </form>
     </div>

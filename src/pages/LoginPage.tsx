@@ -25,10 +25,24 @@ export default function LoginPage() {
       <div className="card w-96 bg-base-100 shadow-xl border p-8">
         <h2 className="card-title justify-center mb-4">Anmelden</h2>
         <form onSubmit={handleLogin} className="space-y-4">
-          <input type="text" className="input input-bordered w-full" placeholder="Benutzer" value={username} onChange={e => setUsername(e.target.value)} />
-          <input type="password" className="input input-bordered w-full" placeholder="Passwort" value={password} onChange={e => setPassword(e.target.value)} />
+          <input
+            type="text"
+            className="input input-bordered w-full"
+            placeholder="Benutzer"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            type="password"
+            className="input input-bordered w-full"
+            placeholder="Passwort"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
           {error && <div className="alert alert-error text-xs py-2">{error}</div>}
-          <button type="submit" className="btn btn-primary w-full">Login</button>
+          <button type="submit" className="btn btn-primary w-full">
+            Login
+          </button>
         </form>
       </div>
     </div>

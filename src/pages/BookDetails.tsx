@@ -36,9 +36,15 @@ export default function BookDetails() {
       <div className="card lg:card-side bg-base-100 shadow-xl border">
         <div className="card-body">
           <h2 className="card-title text-4xl font-bold">{buch.titel.titel}</h2>
-          <p className="text-xl italic opacity-70">{buch.titel.untertitel !== 'null' ? buch.titel.untertitel : ''}</p>
+          <p className="text-xl italic opacity-70">
+            {buch.titel.untertitel !== 'null' ? buch.titel.untertitel : ''}
+          </p>
           <div className="card-actions justify-end">
-            {isAdmin && <button onClick={handleDelete} className="btn btn-error text-white">Löschen</button>}
+            {isAdmin && (
+              <button onClick={handleDelete} className="btn btn-error text-white">
+                Löschen
+              </button>
+            )}
           </div>
         </div>
       </div>
