@@ -4,7 +4,7 @@ export type BuchArt = 'EPUB' | 'HARDCOVER' | 'PAPERBACK';
 
 type Titel = {
   id: number;
-  title: string;
+  titel: string;
   untertitel: string;
 };
 type Abbildung = {
@@ -57,7 +57,7 @@ export async function find(query: Record<string, string> = {}): Promise<BuchPage
   if (!response.ok) {
     throw new Error(`Fehler beim Laden der Bücher: ${response.statusText}`);
   }
-  // Hier die Korrektur: Wir geben das ganze Page-Objekt zurück
+  // Das Backend liefert das Objekt mit 'content' und 'page'
   return await response.json();
 }
 export async function getToken(user: { username: string; password: string }): Promise<string> {
