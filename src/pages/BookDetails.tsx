@@ -54,7 +54,7 @@ export default function BookDetails() {
         <span className="loading loading-spinner loading-lg"></span>
       </div>
     );
-  
+
   if (error || !buch)
     return <div className="alert alert-error">{error || 'Buch nicht gefunden'}</div>;
 
@@ -76,9 +76,7 @@ export default function BookDetails() {
           </div>
 
           {buch.titel?.untertitel && buch.titel.untertitel !== 'null' && (
-            <p className="text-xl italic opacity-70">
-              {buch.titel.untertitel}
-            </p>
+            <p className="text-xl italic opacity-70">{buch.titel.untertitel}</p>
           )}
 
           <div className="divider"></div>
@@ -87,7 +85,9 @@ export default function BookDetails() {
             <div>
               <div className="stat-title text-sm uppercase font-bold opacity-50">Preis</div>
               <div className="stat-value text-primary">
-                {new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(buch.preis)}
+                {new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(
+                  buch.preis,
+                )}
               </div>
               <div className={`badge ${buch.lieferbar ? 'badge-success' : 'badge-warning'} mt-2`}>
                 {buch.lieferbar ? 'Sofort lieferbar' : 'Derzeit nicht verfügbar'}
@@ -103,12 +103,12 @@ export default function BookDetails() {
                 <span className="font-bold opacity-50 block text-xs uppercase">Bewertung</span>
                 <div className="rating rating-sm">
                   {[1, 2, 3, 4, 5].map((star) => (
-                    <input 
-                      key={star} 
-                      type="radio" 
-                      className="mask mask-star-2 bg-orange-400 cursor-default" 
-                      checked={star <= buch.rating} 
-                      readOnly 
+                    <input
+                      key={star}
+                      type="radio"
+                      className="mask mask-star-2 bg-orange-400 cursor-default"
+                      checked={star <= buch.rating}
+                      readOnly
                     />
                   ))}
                 </div>
