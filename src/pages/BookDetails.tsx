@@ -11,7 +11,7 @@ export default function BookDetails() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  const isAdmin = !!Cookies.get('token'); 
+  const isAdmin = !!Cookies.get('token');
 
   useEffect(() => {
     if (!id) return;
@@ -67,6 +67,7 @@ export default function BookDetails() {
         <div className="card-body lg:w-2/3">
           <h2 className="card-title text-4xl font-bold">{buch.titel?.titel}</h2>
 <<<<<<< HEAD
+<<<<<<< HEAD
           <p className="text-xl italic opacity-70">{buch.titel?.untertitel !== 'null' ? buch.titel?.untertitel : ''}</p>
 =======
           <p className="text-xl italic opacity-70">
@@ -74,6 +75,11 @@ export default function BookDetails() {
           </p>
           {/* ... Rest der UI ... */}
 >>>>>>> df695048643abf51902f903d51b57f2db93ac37a
+=======
+          <p className="text-xl italic opacity-70">
+            {buch.titel?.untertitel !== 'null' ? buch.titel?.untertitel : ''}
+          </p>
+>>>>>>> 8dfe24ef329ca2e6cddca471e957047f120fbab7
           <div className="card-actions justify-end mt-8 gap-2">
             {isAdmin && (
               <button onClick={handleDelete} className="btn btn-error text-white">
