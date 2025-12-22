@@ -27,6 +27,15 @@ export type Buch = {
   titel: Titel;
   abbildungen: Abbildung[];
 };
+export type BuchPage = {
+  content: Buch[];
+  page: {
+    size: number;
+    number: number;
+    totalElements: number;
+    totalPages: number;
+  };
+};
 type TitelCreate = Omit<Titel, 'id'>;
 type AbbildungCreate = Omit<Abbildung, 'id'>;
 export type BuchCreate = Omit<Buch, 'id' | 'titel' | 'abbildungen' | 'version'> & {
@@ -42,14 +51,14 @@ export async function findById(id: number): Promise<Buch> {
   const buch: Buch = await response.json();
   return buch;
 }
-export async function find(query: Record<string, string> = {}): Promise<Buch[]> {
+export async function find(query: Record<string, string> = {}): Promise<BuchPage> {
   const params = new URLSearchParams(query);
   const response = await fetch(`${baseURL}?${params.toString()}`);
   if (!response.ok) {
     throw new Error(`Fehler beim Laden der Bücher: ${response.statusText}`);
   }
-  const buecher: Buch[] = await response.json();
-  return buecher;
+  // Hier die Korrektur: Wir geben das ganze Page-Objekt zurück
+  return await response.json();
 }
 export async function getToken(user: { username: string; password: string }): Promise<string> {
   const response = await fetch('https://localhost:3000/auth/token', {
