@@ -46,19 +46,40 @@ export default function BookDetails() {
     }
   };
 
-  if (loading) return (<div className="text-center p-10"><span className="loading loading-spinner loading-lg"></span></div>);
-  if (error || !buch) return <div className="alert alert-error">{error || 'Buch nicht gefunden'}</div>;
+  if (loading)
+    return (
+      <div className="text-center p-10">
+        <span className="loading loading-spinner loading-lg"></span>
+      </div>
+    );
+  if (error || !buch)
+    return <div className="alert alert-error">{error || 'Buch nicht gefunden'}</div>;
 
   return (
     <div className="container mx-auto p-4 max-w-5xl">
-      <button onClick={() => navigate('/buecher')} className="btn btn-ghost mb-4">← Zurück</button>
+      <button onClick={() => navigate('/buecher')} className="btn btn-ghost mb-4">
+        ← Zurück
+      </button>
       <div className="card lg:card-side bg-base-100 shadow-xl border border-base-200">
-        <figure className="bg-base-200 min-h-[300px] lg:w-1/3 flex items-center justify-center"><span className="text-9xl">📖</span></figure>
+        <figure className="bg-base-200 min-h-[300px] lg:w-1/3 flex items-center justify-center">
+          <span className="text-9xl">📖</span>
+        </figure>
         <div className="card-body lg:w-2/3">
           <h2 className="card-title text-4xl font-bold">{buch.titel?.titel}</h2>
+<<<<<<< HEAD
           <p className="text-xl italic opacity-70">{buch.titel?.untertitel !== 'null' ? buch.titel?.untertitel : ''}</p>
+=======
+          <p className="text-xl italic opacity-70">
+            {buch.titel?.untertitel !== 'null' ? buch.titel?.untertitel : ''}
+          </p>
+          {/* ... Rest der UI ... */}
+>>>>>>> df695048643abf51902f903d51b57f2db93ac37a
           <div className="card-actions justify-end mt-8 gap-2">
-            {isAdmin && <button onClick={handleDelete} className="btn btn-error text-white">Löschen</button>}
+            {isAdmin && (
+              <button onClick={handleDelete} className="btn btn-error text-white">
+                Löschen
+              </button>
+            )}
             <button className="btn btn-primary">In den Warenkorb</button>
           </div>
         </div>
