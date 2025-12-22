@@ -98,7 +98,14 @@ export default function NewBookPage() {
             <label className="label">
               <span className="label-text font-semibold">Preis (€)</span>
             </label>
-            <input type="number" name="preis" required step="0.01" className="input input-bordered" onChange={handleChange} />
+            <input
+              type="number"
+              name="preis"
+              required
+              step="0.01"
+              className="input input-bordered"
+              onChange={handleChange}
+            />
           </div>
         </div>
         <div className="card-actions justify-end mt-6">

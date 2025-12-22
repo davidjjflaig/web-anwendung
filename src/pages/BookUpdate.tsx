@@ -56,8 +56,13 @@ export function EditBookPage() {
       <h1 className="text-2xl font-bold mb-4">Buch bearbeiten</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div className="form-control">
-          <label className="label"><span className="label-text">ISBN</span></label>
-          <input className="input input-bordered w-full" {...register('isbn', { required: true })} />
+          <label className="label">
+            <span className="label-text">ISBN</span>
+          </label>
+          <input
+            className="input input-bordered w-full"
+            {...register('isbn', { required: true })}
+          />
         </div>
         <button type="submit" className="btn btn-primary w-full" disabled={!isDirty}>
           Speichern
