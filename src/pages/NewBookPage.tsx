@@ -21,18 +21,11 @@ export default function NewBookPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setError('');
-
-    // Pflicht: Token aus Cookie holen
     const token = Cookies.get('token');
-    if (!token) {
-      setError('Du musst eingeloggt sein!');
-      setLoading(false);
-      return;
-    }
+    if (!token) return setError('Login erforderlich');
 
     try {
+      setLoading(true);
       const neuesBuch: BuchCreate = {
         isbn: formData.isbn,
         rating: Number(formData.rating),
@@ -49,52 +42,25 @@ export default function NewBookPage() {
         },
         abbildungen: [],
       };
-
       await createBuch(neuesBuch, token);
-      alert('Buch erfolgreich angelegt!');
       navigate('/buecher');
     } catch (err) {
-      console.error(err);
-      setError('Fehler beim Anlegen. Ist die ISBN einzigartig?');
+      setError('Fehler beim Erstellen');
     } finally {
       setLoading(false);
     }
   };
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value, type } = e.target;
-    const val = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
-    setFormData((prev) => ({ ...prev, [name]: val }));
-  };
 
   return (
-    <div className="max-w-2xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6">Neues Buch erfassen</h1>
+    <div className="max-w-2xl mx-auto p-4">
+      <h1 className="text-3xl font-bold mb-6">Neues Buch</h1>
       {error && <div className="alert alert-error mb-4">{error}</div>}
-      <form
-        onSubmit={handleSubmit}
-        className="card bg-base-100 shadow-xl border border-base-200 p-6 space-y-4"
-      >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Titel</span>
-            </label>
-            <input name="title" required className="input input-bordered" onChange={handleChange} />
-          </div>
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Untertitel</span>
-            </label>
-            <input name="untertitel" className="input input-bordered" onChange={handleChange} />
-          </div>
-        </div>
-        <div className="card-actions justify-end mt-6">
-          <button type="button" className="btn btn-ghost" onClick={() => navigate('/buecher')}>
-            Abbrechen
-          </button>
-          <button type="submit" className="btn btn-primary" disabled={loading}>
-            {loading ? 'Speichere...' : 'Buch anlegen'}
-          </button>
+      <form onSubmit={handleSubmit} className="card bg-base-100 shadow-xl border p-6 space-y-4">
+        <input className="input input-bordered" placeholder="Titel" onChange={e => setFormData({...formData, title: e.target.value})} />
+        <input className="input input-bordered" placeholder="ISBN" onChange={e => setFormData({...formData, isbn: e.target.value})} />
+        <input type="number" className="input input-bordered" placeholder="Preis" onChange={e => setFormData({...formData, preis: Number(e.target.value)})} />
+        <div className="card-actions justify-end">
+          <button type="submit" className="btn btn-primary" disabled={loading}>Speichern</button>
         </div>
       </form>
     </div>

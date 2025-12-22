@@ -2,16 +2,18 @@ const baseURL = import.meta.env.VITE_API_URL || 'https://localhost:3000/rest';
 
 export type BuchArt = 'EPUB' | 'HARDCOVER' | 'PAPERBACK';
 
-type Titel = {
+export type Titel = {
   id: number;
   titel: string;
   untertitel: string;
 };
-type Abbildung = {
+
+export type Abbildung = {
   id: number;
   beschriftung: string;
   contentType: string;
 };
+
 export type Buch = {
   id: number;
   isbn: string;
@@ -27,6 +29,7 @@ export type Buch = {
   titel: Titel;
   abbildungen: Abbildung[];
 };
+
 export type BuchPage = {
   content: Buch[];
   page: {
@@ -36,43 +39,48 @@ export type BuchPage = {
     totalPages: number;
   };
 };
-type TitelCreate = Omit<Titel, 'id'>;
-type AbbildungCreate = Omit<Abbildung, 'id'>;
+
+export type TitelCreate = Omit<Titel, 'id'>;
+export type AbbildungCreate = Omit<Abbildung, 'id'>;
+
 export type BuchCreate = Omit<Buch, 'id' | 'titel' | 'abbildungen' | 'version'> & {
   titel: TitelCreate;
   abbildungen: AbbildungCreate[];
 };
+
 export type BuchPutDto = Omit<BuchCreate, 'titel' | 'abbildungen'>;
+
 export async function findById(id: number): Promise<Buch> {
   const response = await fetch(`${baseURL}/${id}`);
   if (!response.ok) {
-    throw new Error(`Fehler beim Laden des Buchs mit der ID ${id}: ${response.statusText}`);
+    throw new Error('Fehler beim Laden des Buchs mit der ID ${id}');
   }
-  const buch: Buch = await response.json();
-  return buch;
+  return await response.json();
 }
+
 export async function find(query: Record<string, string> = {}): Promise<BuchPage> {
   const params = new URLSearchParams(query);
   const response = await fetch(`${baseURL}?${params.toString()}`);
   if (!response.ok) {
-    throw new Error(`Fehler beim Laden der Bücher: ${response.statusText}`);
+    throw new Error('Fehler beim Laden der Bücher');
   }
   return await response.json();
 }
+
 export async function getToken(user: { username: string; password: string }): Promise<string> {
-  const response = await fetch('https://localhost:3000/auth/token', {
+  const authURL = baseURL.replace('/rest', '/auth/token');
+  const response = await fetch(authURL, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(user),
   });
   if (!response.ok) {
-    throw new Error(`Fehler beim Abrufen des Tokens: ${response.statusText}`);
+    throw new Error('Fehler beim Abrufen des Tokens');
   }
   const data = await response.json();
   return data.access_token;
 }
+
 export async function createBuch(buch: BuchCreate, token: string): Promise<Response> {
   const response = await fetch(`${baseURL}`, {
     method: 'POST',
@@ -83,10 +91,11 @@ export async function createBuch(buch: BuchCreate, token: string): Promise<Respo
     body: JSON.stringify(buch),
   });
   if (!response.ok) {
-    throw new Error(`Fehler beim Erstellen des Buchs: ${response.statusText}`);
+    throw new Error('Fehler beim Erstellen des Buchs');
   }
   return response;
 }
+
 export async function updateBuch(data: {
   id: number;
   buch: Partial<BuchPutDto>;
@@ -107,22 +116,22 @@ export async function updateBuch(data: {
     body: JSON.stringify(updatedBuch),
   });
   if (!response.ok) {
-    throw new Error(`Fehler beim Aktualisieren des Buchs mit der ID ${id}: ${response.statusText}`);
+    throw new Error('Fehler beim Aktualisieren');
   }
   return response;
 }
+
 export async function deleteBuch(id: number, token: string): Promise<Response> {
   const response = await fetch(`${baseURL}/${id}`, {
     method: 'DELETE',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: { Authorization: `Bearer ${token}` },
   });
   if (!response.ok) {
-    throw new Error(`Fehler beim Löschen des Buchs mit der ID ${id}: ${response.statusText}`);
+    throw new Error('Fehler beim Löschen');
   }
   return response;
 }
+
 export function buchtoBuchPutDto(buch: Buch): BuchPutDto {
   return {
     isbn: buch.isbn,
