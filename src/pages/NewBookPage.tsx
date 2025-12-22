@@ -25,7 +25,7 @@ export default function NewBookPage() {
     setError('');
 
     // Pflicht: Token aus Cookie holen
-    const token = Cookies.get('token'); 
+    const token = Cookies.get('token');
     if (!token) {
       setError('Du musst eingeloggt sein!');
       setLoading(false);
@@ -71,20 +71,29 @@ export default function NewBookPage() {
     <div className="max-w-2xl mx-auto">
       <h1 className="text-3xl font-bold mb-6">Neues Buch erfassen</h1>
       {error && <div className="alert alert-error mb-4">{error}</div>}
-      <form onSubmit={handleSubmit} className="card bg-base-100 shadow-xl border border-base-200 p-6 space-y-4">
+      <form
+        onSubmit={handleSubmit}
+        className="card bg-base-100 shadow-xl border border-base-200 p-6 space-y-4"
+      >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="form-control">
-            <label className="label"><span className="label-text">Titel</span></label>
+            <label className="label">
+              <span className="label-text">Titel</span>
+            </label>
             <input name="title" required className="input input-bordered" onChange={handleChange} />
           </div>
           <div className="form-control">
-            <label className="label"><span className="label-text">Untertitel</span></label>
+            <label className="label">
+              <span className="label-text">Untertitel</span>
+            </label>
             <input name="untertitel" className="input input-bordered" onChange={handleChange} />
           </div>
         </div>
         {/* ... (ISBN, Preis, Art, Rating etc. wie gehabt) ... */}
         <div className="card-actions justify-end mt-6">
-          <button type="button" className="btn btn-ghost" onClick={() => navigate('/buecher')}>Abbrechen</button>
+          <button type="button" className="btn btn-ghost" onClick={() => navigate('/buecher')}>
+            Abbrechen
+          </button>
           <button type="submit" className="btn btn-primary" disabled={loading}>
             {loading ? 'Speichere...' : 'Buch anlegen'}
           </button>
