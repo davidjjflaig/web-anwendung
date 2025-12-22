@@ -11,39 +11,61 @@ export default function LoginPage() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError('');
+
     try {
       const token = await getToken({ username, password });
       Cookies.set('token', token, { expires: 1, secure: true, sameSite: 'strict' });
       navigate('/buecher');
-    } catch (err) {
-      setError('Anmeldung fehlgeschlagen');
+    } catch {
+      setError('Login fehlgeschlagen. Überprüfe den Benutzernamen und das Passwort.');
     }
   };
 
   return (
     <div className="flex justify-center items-center h-[50vh]">
-      <div className="card w-96 bg-base-100 shadow-xl border p-8">
-        <h2 className="card-title justify-center mb-4">Anmelden</h2>
-        <form onSubmit={handleLogin} className="space-y-4">
-          <input
-            type="text"
-            className="input input-bordered w-full"
-            placeholder="Benutzer"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <input
-            type="password"
-            className="input input-bordered w-full"
-            placeholder="Passwort"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          {error && <div className="alert alert-error text-xs py-2">{error}</div>}
-          <button type="submit" className="btn btn-primary w-full">
-            Login
-          </button>
-        </form>
+      <div className="card w-96 bg-base-100 shadow-xl border border-base-200">
+        <div className="card-body">
+          <h2 className="card-title justify-center mb-4">Anmelden</h2>
+
+          <form onSubmit={handleLogin} className="form-control gap-4">
+            <div>
+              <label className="label">
+                <span className="label-text">Benutzername</span>
+              </label>
+              <input
+                type="text"
+                className="input input-bordered w-full"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </div>
+
+            <div>
+              <label className="label">
+                <span className="label-text">Passwort</span>
+              </label>
+              <input
+                type="password"
+                className="input input-bordered w-full"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+
+            {error && (
+              <div role="alert" className="alert alert-error text-sm py-2">
+                <span>{error}</span>
+              </div>
+            )}
+
+            <div className="card-actions justify-end mt-4">
+              <button type="submit" className="btn btn-primary w-full">
+                Login
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

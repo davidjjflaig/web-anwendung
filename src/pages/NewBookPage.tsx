@@ -21,11 +21,17 @@ export default function NewBookPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
+    setError('');
+
     const token = Cookies.get('token');
-    if (!token) return setError('Login erforderlich');
+    if (!token) {
+      setError('Du musst eingeloggt sein!');
+      setLoading(false);
+      return;
+    }
 
     try {
-      setLoading(true);
       const neuesBuch: BuchCreate = {
         isbn: formData.isbn,
         rating: Number(formData.rating),
@@ -42,39 +48,65 @@ export default function NewBookPage() {
         },
         abbildungen: [],
       };
+
       await createBuch(neuesBuch, token);
+      alert('Buch erfolgreich angelegt!');
       navigate('/buecher');
-    } catch (err) {
-      setError('Fehler beim Erstellen');
+    } catch {
+      setError('Fehler beim Anlegen. Ist die ISBN einzigartig?');
     } finally {
       setLoading(false);
     }
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value, type } = e.target;
+    const val = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
+    setFormData((prev) => ({ ...prev, [name]: val }));
+  };
+
   return (
     <div className="max-w-2xl mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">Neues Buch</h1>
+      <h1 className="text-3xl font-bold mb-6">Neues Buch erfassen</h1>
       {error && <div className="alert alert-error mb-4">{error}</div>}
-      <form onSubmit={handleSubmit} className="card bg-base-100 shadow-xl border p-6 space-y-4">
-        <input
-          className="input input-bordered"
-          placeholder="Titel"
-          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-        />
-        <input
-          className="input input-bordered"
-          placeholder="ISBN"
-          onChange={(e) => setFormData({ ...formData, isbn: e.target.value })}
-        />
-        <input
-          type="number"
-          className="input input-bordered"
-          placeholder="Preis"
-          onChange={(e) => setFormData({ ...formData, preis: Number(e.target.value) })}
-        />
-        <div className="card-actions justify-end">
+      <form
+        onSubmit={handleSubmit}
+        className="card bg-base-100 shadow-xl border border-base-200 p-6 space-y-4"
+      >
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text font-semibold">Titel</span>
+            </label>
+            <input name="title" required className="input input-bordered" onChange={handleChange} />
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text font-semibold">Untertitel</span>
+            </label>
+            <input name="untertitel" className="input input-bordered" onChange={handleChange} />
+          </div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text font-semibold">ISBN</span>
+            </label>
+            <input name="isbn" required className="input input-bordered" onChange={handleChange} />
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text font-semibold">Preis (€)</span>
+            </label>
+            <input type="number" name="preis" required step="0.01" className="input input-bordered" onChange={handleChange} />
+          </div>
+        </div>
+        <div className="card-actions justify-end mt-6">
+          <button type="button" className="btn btn-ghost" onClick={() => navigate('/buecher')}>
+            Abbrechen
+          </button>
           <button type="submit" className="btn btn-primary" disabled={loading}>
-            Speichern
+            {loading ? 'Speichere...' : 'Buch anlegen'}
           </button>
         </div>
       </form>

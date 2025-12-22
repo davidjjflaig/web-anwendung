@@ -1,4 +1,4 @@
-import BookOpenIcon from '@heroicons/react/24/outline/BookOpenIcon';
+import { BookOpenIcon } from '@heroicons/react/24/outline';
 
 export function BookLoader() {
   return (

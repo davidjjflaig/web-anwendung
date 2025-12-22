@@ -53,7 +53,7 @@ export type BuchPutDto = Omit<BuchCreate, 'titel' | 'abbildungen'>;
 export async function findById(id: number): Promise<Buch> {
   const response = await fetch(`${baseURL}/${id}`);
   if (!response.ok) {
-    throw new Error('Fehler beim Laden des Buchs mit der ID ${id}');
+    throw new Error(`Fehler beim Laden des Buchs mit der ID ${id}`);
   }
   return await response.json();
 }

@@ -23,6 +23,7 @@ export default function BooksPage() {
         page: pageTarget.toString(),
         size: '5',
       };
+
       if (filters.titel) query.titel = filters.titel;
       if (filters.art) query.art = filters.art;
       if (filters.lieferbar) query.lieferbar = 'true';
@@ -30,7 +31,7 @@ export default function BooksPage() {
       const result = await find(query);
       setData(result);
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Fehler beim Laden');
+      setError(err instanceof Error ? err.message : 'Server-Fehler');
     } finally {
       setLoading(false);
     }
@@ -38,25 +39,27 @@ export default function BooksPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold text-primary">Büchersuche</h1>
-      <div className="card bg-base-100 shadow-xl p-6 border border-base-200">
+      <div className="card bg-base-100 shadow-lg p-6 border border-base-200">
+        <h1 className="text-2xl font-bold mb-4">Bücher suchen</h1>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
           <input
             type="text"
-            className="input input-bordered"
             placeholder="Titel..."
+            className="input input-bordered"
             value={filters.titel}
             onChange={(e) => setFilters({ ...filters, titel: e.target.value })}
           />
-          <label className="label cursor-pointer justify-start gap-4">
-            <input
-              type="checkbox"
-              className="checkbox checkbox-primary"
-              checked={filters.lieferbar}
-              onChange={(e) => setFilters({ ...filters, lieferbar: e.target.checked })}
-            />
-            <span className="label-text font-bold">Nur lieferbare</span>
-          </label>
+          <div className="form-control">
+            <label className="label cursor-pointer justify-start gap-4">
+              <input
+                type="checkbox"
+                className="checkbox checkbox-primary"
+                checked={filters.lieferbar}
+                onChange={(e) => setFilters({ ...filters, lieferbar: e.target.checked })}
+              />
+              <span className="label-text font-bold">Nur lieferbare</span>
+            </label>
+          </div>
           <button onClick={() => ladeDaten(1)} className="btn btn-primary" disabled={loading}>
             Suchen
           </button>
@@ -72,7 +75,10 @@ export default function BooksPage() {
             {data.content.map((buch) => (
               <div key={buch.id} className="card bg-base-100 shadow-md border border-base-200">
                 <div className="card-body">
-                  <h2 className="card-title text-xl">{buch.titel?.titel || 'Kein Titel'}</h2>
+                  <h2 className="card-title text-xl">{buch.titel?.titel || 'Unbekannter Titel'}</h2>
+                  <p className="text-sm opacity-60">
+                    {buch.titel?.untertitel !== 'null' ? buch.titel?.untertitel : ''}
+                  </p>
                   <div className="card-actions justify-end mt-4">
                     <button
                       className="btn btn-sm btn-outline"
@@ -85,7 +91,8 @@ export default function BooksPage() {
               </div>
             ))}
           </div>
-          <div className="flex justify-center mt-12">
+
+          <div className="flex justify-center gap-2 mt-8">
             <div className="join">
               <button
                 className="join-item btn btn-sm"
@@ -94,9 +101,11 @@ export default function BooksPage() {
               >
                 «
               </button>
-              <button className="join-item btn btn-sm no-animation">
-                Seite {data.page.number + 1} / {data.page.totalPages}
+
+              <button className="join-item btn btn-sm bg-base-200">
+                Seite {data.page.number + 1} von {data.page.totalPages}
               </button>
+
               <button
                 className="join-item btn btn-sm"
                 disabled={data.page.number >= data.page.totalPages - 1}
