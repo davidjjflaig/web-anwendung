@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie'; // Neu: Cookies nutzen
+import Cookies from 'js-cookie';
 import { createBuch, type BuchCreate } from '../API/BuchApi';
 
 export default function NewBookPage() {
@@ -10,7 +10,7 @@ export default function NewBookPage() {
 
   const [formData, setFormData] = useState({
     isbn: '',
-    title: '', // Das bleibt so, da es nur der lokale Formular-Key ist
+    title: '',
     untertitel: '',
     preis: 0,
     rating: 1,
@@ -44,7 +44,7 @@ export default function NewBookPage() {
         homepage: formData.homepage,
         schlagwoerter: ['NEU'],
         titel: {
-          titel: formData.title, // FIX: Hier muss 'titel' stehen!
+          titel: formData.title,
           untertitel: formData.untertitel,
         },
         abbildungen: [],
@@ -60,7 +60,6 @@ export default function NewBookPage() {
       setLoading(false);
     }
   };
-  // ... Rest der Komponente bleibt gleich ...
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
     const val = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
@@ -82,7 +81,6 @@ export default function NewBookPage() {
             <input name="untertitel" className="input input-bordered" onChange={handleChange} />
           </div>
         </div>
-        {/* ... (ISBN, Preis, Art, Rating etc. wie gehabt) ... */}
         <div className="card-actions justify-end mt-6">
           <button type="button" className="btn btn-ghost" onClick={() => navigate('/buecher')}>Abbrechen</button>
           <button type="submit" className="btn btn-primary" disabled={loading}>

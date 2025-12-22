@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom';
 export default function HomePage() {
   return (
     <div className="flex flex-col items-center gap-10">
-      {/* Hero / Begrüßung */}
       <section className="text-center max-w-2xl">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">Willkommen zur Buch-Webanwendung</h1>
         <p className="text-lg text-base-content/70">
@@ -17,7 +16,6 @@ export default function HomePage() {
         </p>
       </section>
 
-      {/* Kacheln für Navigation */}
       <section className="grid gap-6 w-full max-w-4xl md:grid-cols-3">
         <Link to="/buecher" className="card bg-base-100 shadow hover:shadow-lg transition">
           <div className="card-body">

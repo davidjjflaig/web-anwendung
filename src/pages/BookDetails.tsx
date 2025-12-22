@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie'; // Cookies importieren
+import Cookies from 'js-cookie';
 import { findById, deleteBuch, type Buch } from '../API/BuchApi';
 
 export default function BookDetails() {
@@ -11,7 +11,6 @@ export default function BookDetails() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  // Pflicht: Admin-Check via Cookie
   const isAdmin = !!Cookies.get('token'); 
 
   useEffect(() => {
@@ -32,10 +31,9 @@ export default function BookDetails() {
   }, [id]);
 
   const handleDelete = async () => {
-    // FIX: Hier .titel statt .title nutzen
     if (!buch || !window.confirm(`Möchtest du "${buch.titel.titel}" wirklich löschen?`)) return;
 
-    const token = Cookies.get('token'); // Token aus Cookie
+    const token = Cookies.get('token');
     if (!token) return;
 
     try {
@@ -57,10 +55,8 @@ export default function BookDetails() {
       <div className="card lg:card-side bg-base-100 shadow-xl border border-base-200">
         <figure className="bg-base-200 min-h-[300px] lg:w-1/3 flex items-center justify-center"><span className="text-9xl">📖</span></figure>
         <div className="card-body lg:w-2/3">
-          {/* FIX: Hier .titel statt .title nutzen */}
           <h2 className="card-title text-4xl font-bold">{buch.titel?.titel}</h2>
           <p className="text-xl italic opacity-70">{buch.titel?.untertitel !== 'null' ? buch.titel?.untertitel : ''}</p>
-          {/* ... Rest der UI ... */}
           <div className="card-actions justify-end mt-8 gap-2">
             {isAdmin && <button onClick={handleDelete} className="btn btn-error text-white">Löschen</button>}
             <button className="btn btn-primary">In den Warenkorb</button>

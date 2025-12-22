@@ -57,7 +57,6 @@ export async function find(query: Record<string, string> = {}): Promise<BuchPage
   if (!response.ok) {
     throw new Error(`Fehler beim Laden der Bücher: ${response.statusText}`);
   }
-  // Das Backend liefert das Objekt mit 'content' und 'page'
   return await response.json();
 }
 export async function getToken(user: { username: string; password: string }): Promise<string> {
