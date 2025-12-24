@@ -58,10 +58,7 @@ export default function Layout({ children }: LayoutProps) {
               </li>
               <li>
                 {loggedIn ? (
-                  <button
-                    onClick={handleLogout}
-                    className="btn btn-sm btn-outline"
-                  >
+                  <button onClick={handleLogout} className="btn btn-sm btn-outline">
                     Logout
                   </button>
                 ) : (
