@@ -1,6 +1,11 @@
-import { BookOpenIcon, PlusCircleIcon, PencilSquareIcon, UserCircleIcon } from '@heroicons/react/24/outline';
-import  { Link } from 'react-router-dom';
-import  { ProtectedCard } from '../components/ProtectedCard';
+import {
+  BookOpenIcon,
+  PlusCircleIcon,
+  PencilSquareIcon,
+  UserCircleIcon,
+} from '@heroicons/react/24/outline';
+import { Link } from 'react-router-dom';
+import { ProtectedCard } from '../components/ProtectedCard';
 
 export default function HomePage({ isloggedin }: { isloggedin: boolean }) {
   return (
