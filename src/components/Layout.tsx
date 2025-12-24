@@ -1,28 +1,37 @@
 import { BookOpenIcon } from '@heroicons/react/24/outline';
 import type { ReactNode } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { useState } from 'react';
+import Cookies from 'js-cookie';
 
 type LayoutProps = {
   children: ReactNode;
 };
 
 export default function Layout({ children }: LayoutProps) {
+  const [loggedIn, setLoggedIn] = useState(!!Cookies.get('token'));
+
+  const handleLogout = () => {
+    Cookies.remove('token');
+    setLoggedIn(false);
+  };
+
   const getLinkClass = ({ isActive }: { isActive: boolean }) =>
     isActive ? 'active font-bold' : '';
 
   return (
     <div className="flex flex-col min-h-screen bg-base-200 font-sans">
       <header className="sticky top-0 z-50 w-full navbar bg-base-100/90 backdrop-blur shadow-sm border-b border-base-200">
-        <div className="container mx-auto">
+        <div className="container mx-auto flex justify-between">
           <div className="flex-1">
-            <Link to="/" className="btn btn-ghost text-2xl font-black text-primary gap-2">
-              <BookOpenIcon className="h-8 w-8" />
+            <Link to="/" className="btn btn-ghost text-4xl font-black text-primary gap-3">
+              <BookOpenIcon className="h-12 w-12" />
               <span>BuchApp</span>
             </Link>
           </div>
 
           <div className="flex-none">
-            <ul className="menu menu-horizontal px-1 gap-2">
+            <ul className="menu menu-horizontal px-1 gap-2 items-center">
               <li>
                 <NavLink to="/buecher" className={getLinkClass}>
                   Bücherliste
@@ -48,14 +57,23 @@ export default function Layout({ children }: LayoutProps) {
                 </NavLink>
               </li>
               <li>
-                <NavLink
-                  to="/login"
-                  className={({ isActive }) =>
-                    `btn btn-sm btn-outline ${isActive ? 'btn-active' : ''}`
-                  }
-                >
-                  Login
-                </NavLink>
+                {loggedIn ? (
+                  <button
+                    onClick={handleLogout}
+                    className="btn btn-sm btn-outline"
+                  >
+                    Logout
+                  </button>
+                ) : (
+                  <NavLink
+                    to="/login"
+                    className={({ isActive }) =>
+                      `btn btn-sm btn-outline ${isActive ? 'btn-active' : ''}`
+                    }
+                  >
+                    Login
+                  </NavLink>
+                )}
               </li>
             </ul>
           </div>
