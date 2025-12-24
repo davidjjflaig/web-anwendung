@@ -1,13 +1,14 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { getToken } from '../API/BuchApi';
 
-export default function LoginPage() {
+interface LoginPageProps {
+  onLogin: () => void;
+}
+export default function LoginPage({ onLogin }: LoginPageProps) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -16,7 +17,8 @@ export default function LoginPage() {
     try {
       const token = await getToken({ username, password });
       Cookies.set('token', token, { expires: 1, secure: true, sameSite: 'strict' });
-      navigate('/buecher');
+      onLogin();
+      alert('Erfolgreich eingeloggt ✅');
     } catch {
       setError('Login fehlgeschlagen. Überprüfe den Benutzernamen und das Passwort.');
     }
