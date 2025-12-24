@@ -9,15 +9,9 @@ import LoginPage from './pages/LoginPage';
 import BookDetails from './pages/BookDetails';
 import { EditBookPage } from './pages/BookUpdate';
 import { SelectBookPage } from './pages/UpdateNavigator';
-import  Cookies from 'js-cookie';
+import Cookies from 'js-cookie';
 
-function PrivateRoute({
-  isloggedin,
-  children,
-}: {
-  isloggedin: boolean;
-  children: JSX.Element;
-}) {
+function PrivateRoute({ isloggedin, children }: { isloggedin: boolean; children: JSX.Element }) {
   return isloggedin ? children : <Navigate to="/login" replace />;
 }
 
@@ -41,10 +35,7 @@ export default function App() {
             }
           />
 
-          <Route
-            path="/login"
-            element={<LoginPage onLogin={() => setisloggedin(true)} />}
-          />
+          <Route path="/login" element={<LoginPage onLogin={() => setisloggedin(true)} />} />
 
           <Route path="/buecher/:id" element={<BookDetails />} />
 
