@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useState, type JSX } from 'react';
-
 import HomePage from './pages/HomePage';
 import Layout from './components/Layout';
 import BooksPage from './pages/BooksPage';
@@ -10,6 +9,7 @@ import BookDetails from './pages/BookDetails';
 import { EditBookPage } from './pages/BookUpdate';
 import { SelectBookPage } from './pages/UpdateNavigator';
 import Cookies from 'js-cookie';
+import NotFoundPage from './pages/NotFoundPage';
 
 function PrivateRoute({ isloggedin, children }: { isloggedin: boolean; children: JSX.Element }) {
   return isloggedin ? children : <Navigate to="/login" replace />;
@@ -57,7 +57,7 @@ export default function App() {
             }
           />
 
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Layout>
     </BrowserRouter>
