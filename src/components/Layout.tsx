@@ -24,10 +24,7 @@ export default function Layout({ children }: LayoutProps) {
       <header className="sticky top-0 z-50 bg-base-100/90 backdrop-blur border-b border-base-200">
         <div className="navbar container mx-auto">
           <div className="flex-1">
-            <Link
-              to="/"
-              className="btn btn-ghost text-2xl md:text-4xl font-black gap-2 md:gap-3"
-            >
+            <Link to="/" className="btn btn-ghost text-2xl md:text-4xl font-black gap-2 md:gap-3">
               <BookOpenIcon className="h-8 w-8 md:h-12 md:w-12 text-primary" />
               <span>BuchApp</span>
             </Link>
@@ -48,10 +45,7 @@ export default function Layout({ children }: LayoutProps) {
               </li>
               <li>
                 {loggedIn ? (
-                  <button
-                    onClick={handleLogout}
-                    className="btn btn-sm btn-outline"
-                  >
+                  <button onClick={handleLogout} className="btn btn-sm btn-outline">
                     Logout
                   </button>
                 ) : (
@@ -90,9 +84,7 @@ export default function Layout({ children }: LayoutProps) {
         </div>
       </header>
 
-      <main className="flex-grow container mx-auto px-4 py-8 fade-in">
-        {children}
-      </main>
+      <main className="flex-grow container mx-auto px-4 py-8 fade-in">{children}</main>
 
       <footer className="footer footer-center p-8 md:p-10 bg-base-300 text-base-content rounded-t-2xl">
         <aside className="text-center">
@@ -100,9 +92,7 @@ export default function Layout({ children }: LayoutProps) {
           <p className="font-bold md:text-lg">
             BuchApp
             <br />
-            <span className="font-normal opacity-70">
-              React · Tailwind · daisyUI
-            </span>
+            <span className="font-normal opacity-70">React · Tailwind · daisyUI</span>
           </p>
           <p className="text-xs opacity-50 mt-2">
             © {new Date().getFullYear()} – Alle Rechte vorbehalten
