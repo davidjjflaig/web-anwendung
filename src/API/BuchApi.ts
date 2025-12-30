@@ -39,7 +39,6 @@ export type BuchPage = {
     totalPages: number;
   };
 };
-
 export type TitelCreate = Omit<Titel, 'id'>;
 export type AbbildungCreate = Omit<Abbildung, 'id'>;
 

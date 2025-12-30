@@ -16,60 +16,73 @@ export default function Layout({ children }: LayoutProps) {
     setLoggedIn(false);
   };
 
-  const getLinkClass = ({ isActive }: { isActive: boolean }) =>
-    isActive ? 'active font-bold' : '';
+  const linkClass = ({ isActive }: { isActive: boolean }) =>
+    isActive ? 'font-bold text-primary' : '';
 
   return (
     <div className="flex flex-col min-h-screen bg-base-200 font-sans">
-      <header className="sticky top-0 z-50 w-full navbar bg-base-100/90 backdrop-blur shadow-sm border-b border-base-200">
-        <div className="container mx-auto flex justify-between">
+      <header className="sticky top-0 z-50 bg-base-100/90 backdrop-blur border-b border-base-200">
+        <div className="navbar container mx-auto">
           <div className="flex-1">
-            <Link to="/" className="btn btn-ghost text-4xl font-black text-primary gap-3">
-              <BookOpenIcon className="h-12 w-12" />
+            <Link
+              to="/"
+              className="btn btn-ghost text-2xl md:text-4xl font-black gap-2 md:gap-3"
+            >
+              <BookOpenIcon className="h-8 w-8 md:h-12 md:w-12 text-primary" />
               <span>BuchApp</span>
             </Link>
           </div>
 
-          <div className="flex-none">
-            <ul className="menu menu-horizontal px-1 gap-2 items-center">
+          {/* DESKTOP */}
+          <div className="hidden md:flex flex-none">
+            <ul className="menu menu-horizontal gap-2 items-center">
               <li>
-                <NavLink to="/buecher" className={getLinkClass}>
+                <NavLink to="/buecher" className={linkClass}>
                   Bücherliste
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/buecher/neu" className={getLinkClass}>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M12 4v16m8-8H4"
-                    />
-                  </svg>
+                <NavLink to="/buecher/neu" className={linkClass}>
                   Neu
                 </NavLink>
               </li>
               <li>
                 {loggedIn ? (
-                  <button onClick={handleLogout} className="btn btn-sm btn-outline">
+                  <button
+                    onClick={handleLogout}
+                    className="btn btn-sm btn-outline"
+                  >
                     Logout
                   </button>
                 ) : (
-                  <NavLink
-                    to="/login"
-                    className={({ isActive }) =>
-                      `btn btn-sm btn-outline ${isActive ? 'btn-active' : ''}`
-                    }
-                  >
+                  <NavLink to="/login" className="btn btn-sm btn-outline">
                     Login
                   </NavLink>
+                )}
+              </li>
+            </ul>
+          </div>
+
+          {/* MOBILE */}
+          <div className="md:hidden dropdown dropdown-end">
+            <label tabIndex={0} className="btn btn-ghost text-xl">
+              ☰
+            </label>
+            <ul
+              tabIndex={0}
+              className="menu dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+            >
+              <li>
+                <NavLink to="/buecher">Bücherliste</NavLink>
+              </li>
+              <li>
+                <NavLink to="/buecher/neu">Neues Buch</NavLink>
+              </li>
+              <li>
+                {loggedIn ? (
+                  <button onClick={handleLogout}>Logout</button>
+                ) : (
+                  <NavLink to="/login">Login</NavLink>
                 )}
               </li>
             </ul>
@@ -77,18 +90,22 @@ export default function Layout({ children }: LayoutProps) {
         </div>
       </header>
 
-      <main className="flex-grow container mx-auto px-4 py-8 fade-in">{children}</main>
+      <main className="flex-grow container mx-auto px-4 py-8 fade-in">
+        {children}
+      </main>
 
-      <footer className="footer footer-center p-10 bg-base-300 text-base-content rounded-t-2xl">
-        <aside>
-          <BookOpenIcon className="h-10 w-10 text-primary" />
-          <p className="font-bold text-lg">
-            By Mika Stolz, Kenan Seckanovic, Muhammed Güner & David Flaig
+      <footer className="footer footer-center p-8 md:p-10 bg-base-300 text-base-content rounded-t-2xl">
+        <aside className="text-center">
+          <BookOpenIcon className="h-10 w-10 text-primary mx-auto mb-2" />
+          <p className="font-bold md:text-lg">
+            BuchApp
             <br />
-            <span className="font-normal opacity-70">Erstellt mit React, Vite & daisyUI</span>
+            <span className="font-normal opacity-70">
+              React · Tailwind · daisyUI
+            </span>
           </p>
-          <p className="text-xs opacity-50">
-            Copyright © {new Date().getFullYear()} - Alle Rechte vorbehalten
+          <p className="text-xs opacity-50 mt-2">
+            © {new Date().getFullYear()} – Alle Rechte vorbehalten
           </p>
         </aside>
       </footer>
