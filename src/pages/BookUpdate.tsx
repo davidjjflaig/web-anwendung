@@ -22,9 +22,13 @@ export function EditBookPage() {
 
   useEffect(() => {
     async function load() {
-      const buch = await findById(buchId);
-      reset(buchtoBuchPutDto(buch));
-      setLoading(false);
+      try {
+        const buch = await findById(buchId);
+        reset(buchtoBuchPutDto(buch));
+        setLoading(false);
+      } catch (error) {
+        alert(`Fehler beim Laden des Buches: ${error}`);
+      }
     }
     load();
   }, [buchId, reset]);
