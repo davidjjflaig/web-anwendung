@@ -28,7 +28,7 @@ export function EditBookPage() {
         reset(buchtoBuchPutDto(buch));
         setLoading(false);
       } catch (error) {
-        return < ErrorAlert message={(error as Error).message} />;
+        return <ErrorAlert message={(error as Error).message} />;
       }
     }
     load();
