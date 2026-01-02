@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { findById, updateBuch, buchtoBuchPutDto, type BuchPutDto } from '../API/BuchApi';
 import { useParams } from 'react-router-dom';
 import { BookLoader } from '../components/BookLoader';
+import { ErrorAlert } from '../components/ErrorAlert';
 
 export function EditBookPage() {
   const { id } = useParams<{ id: string }>();
@@ -27,7 +28,7 @@ export function EditBookPage() {
         reset(buchtoBuchPutDto(buch));
         setLoading(false);
       } catch (error) {
-        alert(`Fehler beim Laden des Buches: ${error}`);
+        return < ErrorAlert message={(error as Error).message} />;
       }
     }
     load();
