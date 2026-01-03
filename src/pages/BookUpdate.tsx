@@ -19,6 +19,7 @@ export function EditBookPage() {
   } = useForm<BuchPutDto>();
 
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string>('');
   const token = localStorage.getItem('token') || '';
 
   useEffect(() => {
@@ -28,7 +29,9 @@ export function EditBookPage() {
         reset(buchtoBuchPutDto(buch));
         setLoading(false);
       } catch (error) {
-        return < ErrorAlert message={(error as Error).message} />;
+        setError(error instanceof Error ? error.message : 'Unbekannter Fehler');
+      }
+      finally { setLoading(false);
       }
     }
     load();
@@ -44,6 +47,7 @@ export function EditBookPage() {
   };
 
   if (loading) return <BookLoader />;
+  if (error) return <ErrorAlert message={error} />;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 max-w-xl">
