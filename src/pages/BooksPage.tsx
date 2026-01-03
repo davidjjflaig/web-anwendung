@@ -49,6 +49,18 @@ export default function BooksPage() {
             value={filters.titel}
             onChange={(e) => setFilters({ ...filters, titel: e.target.value })}
           />
+          <label htmlFor="art-select" className="sr-only">Buchtyp</label>
+          <select
+            id="art-select"
+            className="select select-bordered w-full"
+            value={filters.art}
+            onChange={(e) => setFilters({ ...filters, art: e.target.value })}
+          >
+            <option value="">Alle Arten</option>
+            <option value="EPUB">EPUB</option>
+            <option value="HARDCOVER">Hardcover</option>
+            <option value="PAPERBACK">Paperback</option>
+          </select>
           <div className="form-control">
             <label className="label cursor-pointer justify-start gap-4">
               <input
@@ -60,6 +72,7 @@ export default function BooksPage() {
               <span className="label-text font-bold">Nur lieferbare</span>
             </label>
           </div>
+          
           <button onClick={() => ladeDaten(1)} className="btn btn-primary" disabled={loading}>
             Suchen
           </button>
