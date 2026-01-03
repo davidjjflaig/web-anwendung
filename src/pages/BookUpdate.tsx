@@ -29,7 +29,9 @@ export function EditBookPage() {
         reset(buchtoBuchPutDto(buch));
         setLoading(false);
       } catch (error) {
-        return < ErrorAlert message={(error as Error).message} />;
+        setError(error instanceof Error ? error.message : 'Unbekannter Fehler');
+      }
+      finally { setLoading(false);
       }
     }
     load();
