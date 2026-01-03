@@ -56,15 +56,11 @@ export function EditBookPage() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 max-w-xl">
-
       <div className="form-control">
         <label className="label">
           <span className="label-text">ISBN</span>
         </label>
-        <input
-          className="input input-bordered w-full"
-          {...register('isbn', { required: true })}
-        />
+        <input className="input input-bordered w-full" {...register('isbn', { required: true })} />
       </div>
 
       <div className="form-control">
@@ -82,10 +78,7 @@ export function EditBookPage() {
         <label className="label">
           <span className="label-text">Art</span>
         </label>
-        <select
-          className="select select-bordered w-full"
-          {...register('art')}
-        >
+        <select className="select select-bordered w-full" {...register('art')}>
           <option value="HARDCOVER">Hardcover</option>
           <option value="PAPERBACK">Paperback</option>
           <option value="EPUB">EPUB</option>
@@ -106,11 +99,7 @@ export function EditBookPage() {
 
       <div className="form-control">
         <label className="label cursor-pointer justify-start gap-2">
-          <input
-            type="checkbox"
-            className="checkbox"
-            {...register('lieferbar')}
-          />
+          <input type="checkbox" className="checkbox" {...register('lieferbar')} />
           <span className="label-text">Lieferbar</span>
         </label>
       </div>
@@ -135,19 +124,12 @@ export function EditBookPage() {
         <input
           className="input input-bordered w-full"
           {...register('schlagwoerter', {
-            setValueAs: (v) =>
-              typeof v === 'string'
-                ? v.split(',').map((s) => s.trim())
-                : v,
+            setValueAs: (v) => (typeof v === 'string' ? v.split(',').map((s) => s.trim()) : v),
           })}
         />
       </div>
 
-      <button
-        type="submit"
-        className="btn btn-primary"
-        disabled={!isDirty}
-      >
+      <button type="submit" className="btn btn-primary" disabled={!isDirty}>
         Speichern
       </button>
     </form>
