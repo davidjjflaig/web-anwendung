@@ -49,7 +49,9 @@ export default function BooksPage() {
             value={filters.titel}
             onChange={(e) => setFilters({ ...filters, titel: e.target.value })}
           />
-          <label htmlFor="art-select" className="sr-only">Buchtyp</label>
+          <label htmlFor="art-select" className="sr-only">
+            Buchtyp
+          </label>
           <select
             id="art-select"
             className="select select-bordered w-full"
@@ -72,7 +74,7 @@ export default function BooksPage() {
               <span className="label-text font-bold">Nur lieferbare</span>
             </label>
           </div>
-          
+
           <button onClick={() => ladeDaten(1)} className="btn btn-primary" disabled={loading}>
             Suchen
           </button>
