@@ -111,8 +111,8 @@ export default function BooksPage() {
             <div className="join">
               <button
                 className="join-item btn btn-sm"
-                disabled={data.page.number === 0}
-                onClick={() => ladeDaten(data.page.number)}
+                disabled={data.page.number <= 0}
+                onClick={() => ladeDaten(data.page.number - 1)}
               >
                 «
               </button>
@@ -124,7 +124,7 @@ export default function BooksPage() {
               <button
                 className="join-item btn btn-sm"
                 disabled={data.page.number >= data.page.totalPages - 1}
-                onClick={() => ladeDaten(data.page.number + 2)}
+                onClick={() => ladeDaten(data.page.number + 1)}
               >
                 »
               </button>
