@@ -59,10 +59,10 @@ export default function BooksPage() {
               value={filters.art}
               onChange={(e) => setFilters({ ...filters, art: e.target.value })}
             >
-            <option value="">Alle Arten</option>
-            <option value="EPUB">EPUB</option>
-            <option value="HARDCOVER">Hardcover</option>
-            <option value="PAPERBACK">Paperback</option>
+              <option value="">Alle Arten</option>
+              <option value="EPUB">EPUB</option>
+              <option value="HARDCOVER">Hardcover</option>
+              <option value="PAPERBACK">Paperback</option>
             </select>
           </div>
           <div className="form-control">
@@ -76,7 +76,7 @@ export default function BooksPage() {
               <span className="label-text font-bold">Nur lieferbare</span>
             </label>
           </div>
-          
+
           <button onClick={() => ladeDaten(1)} className="btn btn-primary" disabled={loading}>
             Suchen
           </button>
