@@ -30,8 +30,8 @@ export function EditBookPage() {
         setLoading(false);
       } catch (error) {
         setError(error instanceof Error ? error.message : 'Unbekannter Fehler');
-      }
-      finally { setLoading(false);
+      } finally {
+        setLoading(false);
       }
     }
     load();
