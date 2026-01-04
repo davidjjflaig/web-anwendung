@@ -88,7 +88,6 @@ export default function BookDetails() {
                 readOnly
               />
             ))}
-            <span className="ml-3 text-sm opacity-60">({buch.rating}/5)</span>
           </div>
 
           <div className="divider"></div>
