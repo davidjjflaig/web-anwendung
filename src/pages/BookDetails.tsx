@@ -113,7 +113,11 @@ export default function BookDetails() {
                 Löschen
               </button>
             )}
-            <button className="btn btn-primary btn-wide" disabled={!buch.lieferbar } onClick={handlebuy}>
+            <button
+              className="btn btn-primary btn-wide"
+              disabled={!buch.lieferbar}
+              onClick={handlebuy}
+            >
               In den Warenkorb
             </button>
           </div>
