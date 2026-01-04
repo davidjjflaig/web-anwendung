@@ -31,6 +31,10 @@ export default function BookDetails() {
     ladeBuch();
   }, [id]);
 
+  const handlebuy = async () => {
+    alert('In den Warenkorb gelegt!');
+  };
+
   const handleDelete = async () => {
     if (!buch || !window.confirm(`Möchtest du "${buch.titel.titel}" wirklich löschen?`)) return;
 
@@ -109,7 +113,7 @@ export default function BookDetails() {
                 Löschen
               </button>
             )}
-            <button className="btn btn-primary btn-wide" disabled={!buch.lieferbar}>
+            <button className="btn btn-primary btn-wide" disabled={!buch.lieferbar } onClick={handlebuy}>
               In den Warenkorb
             </button>
           </div>
