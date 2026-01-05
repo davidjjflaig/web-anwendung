@@ -94,7 +94,9 @@ export default function BooksPage() {
                 title="Rating"
                 className="range"
               />
-              <span className="ml-2 font-bold">{filters.rating === 0 ? 'Alle' : filters.rating}</span>
+              <span className="ml-2 font-bold">
+                {filters.rating === 0 ? 'Alle' : filters.rating}
+              </span>
               <button
                 type="button"
                 className="btn btn-ghost btn-sm"

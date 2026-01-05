@@ -1,6 +1,6 @@
 import { useForm, useFieldArray } from 'react-hook-form';
 
-import {createBuch, type BuchCreate} from '../API/BuchApi';
+import { createBuch, type BuchCreate } from '../API/BuchApi';
 import Cookies from 'js-cookie';
 import { BookLoader } from '../components/BookLoader';
 import { ErrorAlert } from '../components/ErrorAlert';
@@ -44,7 +44,6 @@ export default function NewBookPage() {
         datum: form.datum ? new Date(form.datum) : new Date(),
         homepage: form.homepage,
         schlagwoerter: form.schlagwoerterInput
-
           ? form.schlagwoerterInput
               .split(',')
               .map((s) => s.trim())
@@ -245,4 +244,3 @@ export default function NewBookPage() {
     </form>
   );
 }
-  
