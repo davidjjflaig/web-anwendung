@@ -4,6 +4,7 @@ import { findById, updateBuch, buchtoBuchPutDto, type BuchPutDto } from '../API/
 import { useParams } from 'react-router-dom';
 import { BookLoader } from '../components/BookLoader';
 import { ErrorAlert } from '../components/ErrorAlert';
+import Cookies from 'js-cookie';
 
 export function EditBookPage() {
   const { id } = useParams<{ id: string }>();
@@ -22,7 +23,7 @@ export function EditBookPage() {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>('');
-  const token = localStorage.getItem('token') || '';
+  const token = Cookies.get('token') || '';
 
   useEffect(() => {
     async function load() {
