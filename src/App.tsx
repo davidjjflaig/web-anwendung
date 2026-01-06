@@ -11,38 +11,38 @@ import { SelectBookPage } from './pages/UpdateNavigator';
 import Cookies from 'js-cookie';
 import NotFoundPage from './pages/NotFoundPage';
 
-function PrivateRoute({ isloggedin, children }: { isloggedin: boolean; children: JSX.Element }) {
-  return isloggedin ? children : <Navigate to="/login" replace />;
+function PrivateRoute({ isLoggedIn, children }: { isLoggedIn: boolean; children: JSX.Element }) {
+  return isLoggedIn ? children : <Navigate to="/login" replace />;
 }
 
 export default function App() {
   const token = Cookies.get('token');
-  const [isloggedin, setisloggedin] = useState(!!token);
+  const [isLoggedIn, setIsLoggedIn] = useState(!!token);
 
   return (
     <BrowserRouter>
-      <Layout>
+      <Layout isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}>
         <Routes>
-          <Route path="/" element={<HomePage isloggedin={isloggedin} />} />
+          <Route path="/" element={<HomePage isLoggedIn={isLoggedIn} />} />
           <Route path="/buecher" element={<BooksPage />} />
 
           <Route
             path="/buecher/neu"
             element={
-              <PrivateRoute isloggedin={isloggedin}>
+              <PrivateRoute isLoggedIn={isLoggedIn}>
                 <NewBookPage />
               </PrivateRoute>
             }
           />
 
-          <Route path="/login" element={<LoginPage onLogin={() => setisloggedin(true)} />} />
+          <Route path="/login" element={<LoginPage onLogin={() => setIsLoggedIn(true)} />} />
 
           <Route path="/buecher/:id" element={<BookDetails />} />
 
           <Route
             path="/buecher/update/:id"
             element={
-              <PrivateRoute isloggedin={isloggedin}>
+              <PrivateRoute isLoggedIn={isLoggedIn}>
                 <EditBookPage />
               </PrivateRoute>
             }
@@ -51,7 +51,7 @@ export default function App() {
           <Route
             path="/buecher/select"
             element={
-              <PrivateRoute isloggedin={isloggedin}>
+              <PrivateRoute isLoggedIn={isLoggedIn}>
                 <SelectBookPage />
               </PrivateRoute>
             }

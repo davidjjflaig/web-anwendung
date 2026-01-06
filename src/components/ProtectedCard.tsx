@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 
 type Props = {
   to: string;
-  isloggedin: boolean;
+  isLoggedIn: boolean;
   children: React.ReactNode;
 };
 
-export function ProtectedCard({ to, isloggedin, children }: Props) {
-  if (!isloggedin) {
+export function ProtectedCard({ to, isLoggedIn, children }: Props) {
+  if (!isLoggedIn) {
     return (
       <div className="card bg-base-100 shadow opacity-50 cursor-not-allowed relative">
         <div className="card-body">

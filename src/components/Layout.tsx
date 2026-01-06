@@ -1,19 +1,19 @@
 import { BookOpenIcon } from '@heroicons/react/24/outline';
 import type { ReactNode } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { useState } from 'react';
 import Cookies from 'js-cookie';
 
 type LayoutProps = {
   children: ReactNode;
+  isLoggedIn: boolean;
+  setIsLoggedIn: (value: boolean) => void;
 };
 
-export default function Layout({ children }: LayoutProps) {
-  const [loggedIn, setLoggedIn] = useState(!!Cookies.get('token'));
+export default function Layout({ children, isLoggedIn, setIsLoggedIn }: LayoutProps) {
 
   const handleLogout = () => {
     Cookies.remove('token');
-    setLoggedIn(false);
+    setIsLoggedIn(false);
   };
 
   const linkClass = ({ isActive }: { isActive: boolean }) =>
@@ -44,7 +44,7 @@ export default function Layout({ children }: LayoutProps) {
                 </NavLink>
               </li>
               <li>
-                {loggedIn ? (
+                {isLoggedIn ? (
                   <button onClick={handleLogout} className="btn btn-sm btn-outline">
                     Logout
                   </button>
@@ -73,7 +73,7 @@ export default function Layout({ children }: LayoutProps) {
                 <NavLink to="/buecher/neu">Neues Buch</NavLink>
               </li>
               <li>
-                {loggedIn ? (
+                {isLoggedIn ? (
                   <button onClick={handleLogout}>Logout</button>
                 ) : (
                   <NavLink to="/login">Login</NavLink>

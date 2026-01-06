@@ -7,7 +7,7 @@ import {
 import { Link } from 'react-router-dom';
 import { ProtectedCard } from '../components/ProtectedCard';
 
-export default function HomePage({ isloggedin }: { isloggedin: boolean }) {
+export default function HomePage({ isLoggedIn }: { isLoggedIn: boolean }) {
   return (
     <div className="flex flex-col items-center gap-10">
       {/* ... */}
@@ -21,19 +21,19 @@ export default function HomePage({ isloggedin }: { isloggedin: boolean }) {
           </div>
         </Link>
 
-        <ProtectedCard to="/buecher/neu" isloggedin={isloggedin}>
+        <ProtectedCard to="/buecher/neu" isLoggedIn={isLoggedIn}>
           <PlusCircleIcon className="h-10 w-10 text-primary mb-2" />
           <h2 className="card-title">Neues Buch anlegen</h2>
           <p>Ein neues Buch im System erfassen.</p>
         </ProtectedCard>
 
-        <ProtectedCard to="/buecher/select" isloggedin={isloggedin}>
+        <ProtectedCard to="/buecher/select" isLoggedIn={isLoggedIn}>
           <PencilSquareIcon className="h-10 w-10 text-primary mb-2" />
           <h2 className="card-title">Buch bearbeiten</h2>
           <p>Ein vorhandenes Buch zur Bearbeitung auswählen.</p>
         </ProtectedCard>
 
-        {!isloggedin && (
+        {!isLoggedIn && (
           <Link to="/login" className="card bg-base-100 shadow hover:shadow-lg transition">
             <div className="card-body">
               <UserCircleIcon className="h-10 w-10 text-primary mb-2" />
