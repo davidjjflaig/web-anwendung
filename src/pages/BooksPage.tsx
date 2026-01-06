@@ -13,6 +13,7 @@ export default function BooksPage() {
     titel: '',
     art: '',
     lieferbar: false,
+    rating: 0,
   });
 
   const ladeDaten = async (pageTarget: number = 1) => {
@@ -27,6 +28,7 @@ export default function BooksPage() {
       if (filters.titel) query.titel = filters.titel;
       if (filters.art) query.art = filters.art;
       if (filters.lieferbar) query.lieferbar = 'true';
+      if (filters.rating) query.rating = filters.rating.toString();
 
       const result = await find(query);
       setData(result);
@@ -75,6 +77,34 @@ export default function BooksPage() {
               />
               <span className="label-text font-bold">Nur lieferbare</span>
             </label>
+          </div>
+
+          <div>
+            <label className="label">
+              <span className="label-text font-bold">Rating (min)</span>
+            </label>
+            <div className="flex items-center gap-2">
+              <input
+                type="range"
+                min={1}
+                max={5}
+                value={filters.rating || 1}
+                onChange={(e) => setFilters({ ...filters, rating: parseInt(e.target.value, 10) })}
+                aria-label="Rating"
+                title="Rating"
+                className="range"
+              />
+              <span className="ml-2 font-bold">
+                {filters.rating === 0 ? 'Alle' : filters.rating}
+              </span>
+              <button
+                type="button"
+                className="btn btn-ghost btn-sm"
+                onClick={() => setFilters({ ...filters, rating: 0 })}
+              >
+                X
+              </button>
+            </div>
           </div>
 
           <button onClick={() => ladeDaten(1)} className="btn btn-primary" disabled={loading}>
