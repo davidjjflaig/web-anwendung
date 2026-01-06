@@ -35,10 +35,14 @@ export default function App() {
             }
           />
 
-          <Route path="/login" element={ 
-            <PrivateRoute isLoggedIn={!isLoggedIn}>
+          <Route
+            path="/login"
+            element={
+              <PrivateRoute isLoggedIn={!isLoggedIn}>
                 <LoginPage onLogin={() => setIsLoggedIn(true)} />
-            </PrivateRoute>} />
+              </PrivateRoute>
+            }
+          />
 
           <Route path="/buecher/:id" element={<BookDetails />} />
 
