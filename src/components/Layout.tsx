@@ -10,7 +10,6 @@ type LayoutProps = {
 };
 
 export default function Layout({ children, isLoggedIn, setIsLoggedIn }: LayoutProps) {
-
   const handleLogout = () => {
     Cookies.remove('token');
     setIsLoggedIn(false);
