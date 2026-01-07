@@ -105,12 +105,13 @@ export async function updateBuch(data: {
   const original = await findById(id);
   const buchPutDto = buchtoBuchPutDto(original);
   const updatedBuch = { ...buchPutDto, ...buch };
+
   const response = await fetch(`${baseURL}/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
-      'If-Match': ifMatch ?? original.version?.toString() ?? '0',
+      'If-Match': addQuote(ifMatch ?? original.version?.toString() ?? '0'),
     },
     body: JSON.stringify(updatedBuch),
   });
@@ -143,4 +144,7 @@ export function buchtoBuchPutDto(buch: Buch): BuchPutDto {
     homepage: buch.homepage,
     schlagwoerter: buch.schlagwoerter,
   };
+}
+function addQuote(text: string): string {
+  return `"${text}"`;
 }
