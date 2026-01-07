@@ -5,7 +5,7 @@ import { BookLoader } from '../components/BookLoader';
 import { ErrorAlert } from '../components/ErrorAlert';
 import { useState } from 'react';
 
-const ISBN_REGEX = /^(97(8|9))?\d{9}(\d|X)$/;
+const ISBN_REGEX = /^(97(8|9))?[\d-]{9,17}[\dX]$/;
 
 export default function NewBookPage() {
   type FormModel = Omit<BuchCreate, 'schlagwoerter' | 'datum'> & {
@@ -13,7 +13,7 @@ export default function NewBookPage() {
     datum: string;
   };
 
-  const { register, handleSubmit, reset, control } = useForm<FormModel>({
+  const { register, handleSubmit, reset, control, formState: { errors } } = useForm<FormModel>({
     defaultValues: {
       art: 'EPUB',
       lieferbar: true,
@@ -36,7 +36,7 @@ export default function NewBookPage() {
     setError('');
     try {
       const buch: BuchCreate = {
-        isbn: form.isbn,
+        isbn: form.isbn.replace(/-/g, ''),
         rating: form.rating,
         art: form.art,
         preis: form.preis,
@@ -103,10 +103,17 @@ export default function NewBookPage() {
           <input
             type="text"
             className="input input-bordered"
-            {...register('isbn', { required: true, pattern: ISBN_REGEX })}
+            {...register('isbn', { required: true, pattern: {
+              value: ISBN_REGEX,
+              message: 'Ungültige ISBN',
+            } })}
           />
         </div>
-
+      { errors.isbn && (
+        <div role="alert" className="alert alert-error text-sm py-2">
+          <span>{errors.isbn.message}</span>
+        </div>
+      ) }
         <div className="form-control">
           <label className="label">
             <span className="label-text font-bold">Art</span>
