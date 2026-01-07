@@ -5,7 +5,6 @@ type ErrorAlertProps = {
   message: string;
 };
 
-
 export function ErrorAlert({ message }: ErrorAlertProps) {
   const navigate = useNavigate();
   return (
