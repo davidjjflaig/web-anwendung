@@ -14,6 +14,7 @@ export default function BooksPage() {
     art: '',
     lieferbar: false,
     rating: 0,
+    preisMax: undefined as number | undefined,
   });
 
   const ladeDaten = async (pageTarget: number = 1) => {
@@ -29,6 +30,8 @@ export default function BooksPage() {
       if (filters.art) query.art = filters.art;
       if (filters.lieferbar) query.lieferbar = 'true';
       if (filters.rating) query.rating = filters.rating.toString();
+      if (filters.preisMax !== undefined && filters.preisMax !== null)
+        query.preis = filters.preisMax.toString();
 
       const result = await find(query);
       setData(result);
@@ -105,6 +108,24 @@ export default function BooksPage() {
                 X
               </button>
             </div>
+          </div>
+
+          <div>
+            <label className="label">
+              <span className="label-text font-bold">Preis (≤)</span>
+            </label>
+            <input
+              type="number"
+              placeholder="≤ Preis"
+              className="input input-bordered"
+              value={filters.preisMax ?? ''}
+              onChange={(e) =>
+                setFilters({
+                  ...filters,
+                  preisMax: e.target.value ? Number(e.target.value) : undefined,
+                })
+              }
+            />
           </div>
 
           <button onClick={() => ladeDaten(1)} className="btn btn-primary" disabled={loading}>
