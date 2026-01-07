@@ -13,7 +13,13 @@ export default function NewBookPage() {
     datum: string;
   };
 
-  const { register, handleSubmit, reset, control, formState: { errors } } = useForm<FormModel>({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    control,
+    formState: { errors },
+  } = useForm<FormModel>({
     defaultValues: {
       art: 'EPUB',
       lieferbar: true,
@@ -103,10 +109,13 @@ export default function NewBookPage() {
           <input
             type="text"
             className="input input-bordered"
-            {...register('isbn', { required: true, pattern: {
-              value: ISBN_REGEX,
-              message: 'Ungültige ISBN',
-            } })}
+            {...register('isbn', {
+              required: true,
+              pattern: {
+                value: ISBN_REGEX,
+                message: 'Ungültige ISBN',
+              },
+            })}
           />
         </div>
       { errors.isbn && (
