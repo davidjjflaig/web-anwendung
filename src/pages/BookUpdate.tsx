@@ -30,11 +30,15 @@ export function EditBookPage() {
       try {
         const buch = await findById(buchId);
         const dto = buchtoBuchPutDto(buch);
+        let formValues = dto;
         if (dto.datum) {
           const dateString = new Date(dto.datum).toISOString().split('T')[0];
-          (dto as any).datum = dateString;
+          formValues = {
+            ...dto,
+            datum: dateString,
+          } as unknown as BuchPutDto;
         }
-        reset(dto);
+        reset(formValues);
       } catch (error) {
         setError(error instanceof Error ? error.message : 'Unbekannter Fehler');
       } finally {
