@@ -5,6 +5,8 @@ import { BookLoader } from '../components/BookLoader';
 import { ErrorAlert } from '../components/ErrorAlert';
 import { useState } from 'react';
 
+const ISBN_REGEX = /^(97(8|9))?\d{9}(\d|X)$/;
+
 export default function NewBookPage() {
   type FormModel = Omit<BuchCreate, 'schlagwoerter' | 'datum'> & {
     schlagwoerterInput: string;
@@ -101,7 +103,7 @@ export default function NewBookPage() {
           <input
             type="text"
             className="input input-bordered"
-            {...register('isbn', { required: true })}
+            {...register('isbn', { required: true, pattern: ISBN_REGEX })}
           />
         </div>
 
