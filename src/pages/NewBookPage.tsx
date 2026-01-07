@@ -118,11 +118,11 @@ export default function NewBookPage() {
             })}
           />
         </div>
-      { errors.isbn && (
-        <div  className="text-error text-sm mt-1">
-          <span>{errors.isbn.message}</span>
-        </div>
-      ) }
+        {errors.isbn && (
+          <div className="text-error text-sm mt-1">
+            <span>{errors.isbn.message}</span>
+          </div>
+        )}
         <div className="form-control">
           <label className="label">
             <span className="label-text font-bold">Art</span>
