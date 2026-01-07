@@ -121,7 +121,9 @@ export default function BookDetails() {
                 <div className="mt-1">
                   <a
                     className="link link-primary break-words"
-                    href={buch.homepage.startsWith('http') ? buch.homepage : `https://${buch.homepage}`}
+                    href={
+                      buch.homepage.startsWith('http') ? buch.homepage : `https://${buch.homepage}`
+                    }
                     target="_blank"
                     rel="noopener noreferrer"
                   >
