@@ -80,18 +80,24 @@ export default function BookDetails() {
           {buch.titel?.untertitel && buch.titel.untertitel !== 'null' && (
             <p className="text-xl italic opacity-70">{buch.titel.untertitel}</p>
           )}
-          <div className="rating rating-md rating-half pointer-events-none">
-            <input type="radio" className="rating-hidden" />
 
-            {[1, 2, 3, 4, 5].map((i) => (
-              <input
-                key={i}
-                type="radio"
-                className="mask mask-star-2 bg-yellow-400"
-                checked={buch.rating === i}
-                readOnly
-              />
-            ))}
+          <div>
+            <div className="font-bold text-sm uppercase opacity-50">Bewertung</div>
+            <div className="mt-1">
+              <div className="rating rating-md rating-half pointer-events-none">
+                <input type="radio" className="rating-hidden" />
+
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <input
+                    key={i}
+                    type="radio"
+                    className="mask mask-star-2 bg-yellow-400"
+                    checked={buch.rating === i}
+                    readOnly
+                  />
+                ))}
+              </div>
+            </div>
           </div>
 
           {Array.isArray(buch.schlagwoerter) && buch.schlagwoerter.length > 0 && (
