@@ -29,7 +29,12 @@ export function EditBookPage() {
     async function load() {
       try {
         const buch = await findById(buchId);
-        reset(buchtoBuchPutDto(buch));
+        const dto = buchtoBuchPutDto(buch);
+        if (dto.datum) {
+          const dateString = new Date(dto.datum).toISOString().split('T')[0];
+          (dto as any).datum = dateString;
+        }
+        reset(dto);
       } catch (error) {
         setError(error instanceof Error ? error.message : 'Unbekannter Fehler');
       } finally {
