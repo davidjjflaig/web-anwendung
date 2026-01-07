@@ -10,6 +10,7 @@ Die Anwendung ist anschließend unter http://localhost verfügbar.🧪 TestingE2
 pnpm test:e2e
 
 # UI-Modus öffnen (für Debugging)
+
 pnpm exec playwright test --ui
 Unit Testspnpm test
 📄 LizenzDieses Projekt ist lizenziert unter der MIT License (oder siehe https://www.google.com/search?q=LICENSE Datei).
