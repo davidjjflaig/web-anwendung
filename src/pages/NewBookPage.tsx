@@ -110,7 +110,7 @@ export default function NewBookPage() {
           />
         </div>
       { errors.isbn && (
-        <div role="alert" className="alert alert-error text-sm py-2">
+        <div  className="text-error text-sm mt-1">
           <span>{errors.isbn.message}</span>
         </div>
       ) }
