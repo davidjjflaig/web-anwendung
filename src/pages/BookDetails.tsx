@@ -107,6 +107,31 @@ export default function BookDetails() {
             </div>
           )}
 
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            {buch.datum && !Number.isNaN(new Date(buch.datum).getTime()) && (
+              <div>
+                <div className="font-bold text-sm uppercase opacity-50">Erscheinungsdatum</div>
+                <div className="mt-1">{new Date(buch.datum).toLocaleDateString('de-DE')}</div>
+              </div>
+            )}
+
+            {buch.homepage && (
+              <div>
+                <div className="font-bold text-sm uppercase opacity-50">Homepage</div>
+                <div className="mt-1">
+                  <a
+                    className="link link-primary break-words"
+                    href={buch.homepage.startsWith('http') ? buch.homepage : `https://${buch.homepage}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {buch.homepage}
+                  </a>
+                </div>
+              </div>
+            )}
+          </div>
+
           <div className="divider"></div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
