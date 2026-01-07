@@ -94,6 +94,19 @@ export default function BookDetails() {
             ))}
           </div>
 
+          {Array.isArray(buch.schlagwoerter) && buch.schlagwoerter.length > 0 && (
+            <div className="mb-4">
+              <div className="font-bold text-sm uppercase opacity-50">Schlagwörter</div>
+              <div className="flex flex-wrap gap-2 mt-2">
+                {buch.schlagwoerter.map((tag) => (
+                  <span key={tag} className="badge badge-outline">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
           <div className="divider"></div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
