@@ -1,6 +1,7 @@
 /**
  * UI-Komponente für Ladezustände im Buch-Kontext.
  */
+
 import { BookOpenIcon } from '@heroicons/react/24/outline';
 
 /**
