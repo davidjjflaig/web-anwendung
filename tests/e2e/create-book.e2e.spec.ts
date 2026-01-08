@@ -1,8 +1,25 @@
+/**
+ * End-to-End-Test für das Erstellen eines neuen Buches.
+ *
+ * Authentifiziert einen Benutzer, legt ein neues Buch über das UI an
+ * und bereinigt die Testdaten anschließend wieder über die API.
+ */
+
 import { expect, test } from '@playwright/test';
+/** Test-Benutzer für die Authentifizierung */
 const username = 'admin';
 const password = 'p';
+
+/** ISBN des Testbuchs */
 const isbn = '978-3-16-148410-0';
+
+/** ISBN ohne Trennstriche für die API-Suche */
 const searchisbn = isbn.replace(/-/g, '');
+
+/**
+ * Verifiziert den vollständigen Ablauf der Bucherstellung
+ * inklusive Login, Formularausfüllen und Aufräumen der Testdaten.
+ */
 test('Create a new book', async ({ page, request }) => {
   try {
     const response = await request.post('/auth/token', {
