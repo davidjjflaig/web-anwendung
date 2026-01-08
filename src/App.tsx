@@ -1,3 +1,10 @@
+/**
+ * Zentrale Einstiegskomponente der Anwendung.
+ *
+ * Definiert das Routing, bindet das Layout ein und verwaltet
+ * den globalen Login-Status des Benutzers.
+ */
+
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useState, type JSX } from 'react';
 import HomePage from './pages/HomePage';
@@ -11,10 +18,29 @@ import { SelectBookPage } from './pages/UpdateNavigator';
 import Cookies from 'js-cookie';
 import NotFoundPage from './pages/NotFoundPage';
 
+/**
+ * Schützt Routen vor unautorisiertem Zugriff.
+ *
+ * Rendert die übergebene Komponente nur, wenn der Benutzer
+ * eingeloggt ist. Andernfalls erfolgt eine Weiterleitung
+ * zur Login-Seite.
+ *
+ * @param isLoggedIn Aktueller Login-Status
+ * @param children Geschützte Route
+ * @returns Geschützte Route oder Redirect zur Login-Seite
+ */
 function PrivateRoute({ isLoggedIn, children }: { isLoggedIn: boolean; children: JSX.Element }) {
   return isLoggedIn ? children : <Navigate to="/login" replace />;
 }
 
+/**
+ * Hauptkomponente der Anwendung.
+ *
+ * Initialisiert den Login-Status anhand eines Token-Cookies
+ * und definiert alle verfügbaren Routen der Anwendung.
+ *
+ * @returns React-Komponente für die gesamte Anwendung
+ */
 export default function App() {
   const token = Cookies.get('token');
   const [isLoggedIn, setIsLoggedIn] = useState(!!token);
