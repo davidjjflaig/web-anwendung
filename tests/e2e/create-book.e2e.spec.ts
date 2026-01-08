@@ -3,13 +3,15 @@ const username = 'admin';
 const password = 'p';
 test('Create a new book', async ({ page }) => {
   try {
-  const token = await page.request.post('/auth/token', {
-    data: { username, password },
-  });
-  page.context().addCookies([{ name: 'token', value: token.toString(), domain: 'swe.flaig.io', path: '/' }]);
-} catch (error) {
-  console.error('Error during authentication:', error);
-}
+    const token = await page.request.post('/auth/token', {
+      data: { username, password },
+    });
+    page
+      .context()
+      .addCookies([{ name: 'token', value: token.toString(), domain: 'swe.flaig.io', path: '/' }]);
+  } catch (error) {
+    console.error('Error during authentication:', error);
+  }
   await page.goto('/buecher/neu');
 
   await page.getByLabel('Titel').fill('E2E Test Buch');

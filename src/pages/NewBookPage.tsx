@@ -93,7 +93,7 @@ export default function NewBookPage() {
             id="titel"
             type="text"
             className="input input-bordered"
-            aria-label='Titel'
+            aria-label="Titel"
             {...register('titel.titel', { required: true })}
           />
         </div>
@@ -106,7 +106,7 @@ export default function NewBookPage() {
             id="untertitel"
             type="text"
             className="input input-bordered"
-            aria-label='Untertitel'
+            aria-label="Untertitel"
             {...register('titel.untertitel')}
           />
         </div>
