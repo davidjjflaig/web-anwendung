@@ -1,5 +1,17 @@
+/**
+ * End-to-End-Test für die Buch-Detailseite.
+ *
+ * Prüft, ob die Detailseite eines Buches korrekt geladen wird,
+ * grundlegende Inhalte angezeigt werden und die Navigation
+ * zurück zur Bücherliste funktioniert.
+ */
+
 import { test, expect } from '@playwright/test';
 
+/**
+ * Verifiziert das Laden und die grundlegende Navigation
+ * der Buch-Detailseite.
+ */
 test('Detailsseite eines Buchs lädt korrekt', async ({ page }) => {
   await page.goto('/buecher/1');
 
