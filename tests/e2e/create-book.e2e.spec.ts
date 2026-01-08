@@ -10,18 +10,16 @@ test('Create a new book', async ({ page, request }) => {
     });
     const token = await response.json();
     const authToken = token.access_token;
-    await page
-      .context()
-      .addCookies([
-        {
-          name: 'token',
-          value: authToken,
-          domain: 'swe.flaig.io',
-          path: '/',
-          httpOnly: false,
-          secure: true,
-        },
-      ]);
+    await page.context().addCookies([
+      {
+        name: 'token',
+        value: authToken,
+        domain: 'swe.flaig.io',
+        path: '/',
+        httpOnly: false,
+        secure: true,
+      },
+    ]);
   } catch (error) {
     console.error('Error during authentication:', error);
   }
