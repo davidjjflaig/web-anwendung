@@ -1,20 +1,58 @@
+/**
+ * Zentrales Layout der Anwendung.
+ *
+ * Stellt Header mit Navigation, Hauptinhalt und Footer bereit
+ * und reagiert auf den aktuellen Login-Status des Benutzers.
+ */
+
 import { BookOpenIcon } from '@heroicons/react/24/outline';
 import type { ReactNode } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
+/**
+ * Props für die Layout-Komponente.
+ */
 type LayoutProps = {
+  /** Seiteninhalt, der innerhalb des Layouts gerendert wird. */
   children: ReactNode;
+
+  /** Gibt an, ob der Benutzer aktuell eingeloggt ist. */
   isLoggedIn: boolean;
+
+  /** Setzt den Login-Status des Benutzers. */
   setIsLoggedIn: (value: boolean) => void;
 };
 
+/**
+ * Layout-Komponente der Anwendung.
+ *
+ * Enthält die Navigationsleiste, den Hauptinhalt und den Footer.
+ * Ermöglicht das Ein- und Ausloggen über die Navigation.
+ *
+ * @param children Seiteninhalt
+ * @param isLoggedIn Aktueller Login-Status
+ * @param setIsLoggedIn Setter für den Login-Status
+ * @returns React-Komponente für das Anwendungs-Layout
+ */
 export default function Layout({ children, isLoggedIn, setIsLoggedIn }: LayoutProps) {
+  /**
+   * Führt den Logout des Benutzers durch.
+   *
+   * Entfernt das Authentifizierungs-Token aus dem Cookie
+   * und setzt den Login-Status zurück.
+   */
   const handleLogout = () => {
     Cookies.remove('token');
     setIsLoggedIn(false);
   };
 
+  /**
+   * Liefert CSS-Klassen für aktive Navigationslinks.
+   *
+   * @param isActive Gibt an, ob der Link aktuell aktiv ist
+   * @returns CSS-Klassenstring
+   */
   const linkClass = ({ isActive }: { isActive: boolean }) =>
     isActive ? 'font-bold text-primary' : '';
 
