@@ -1,5 +1,16 @@
+/**
+ * End-to-End-Test für die Bücherlisten-Seite.
+ *
+ * Prüft, ob die Bücherliste geladen wird und die Suche
+ * nach einem Titel korrekt funktioniert.
+ */
+
 import { test, expect } from '@playwright/test';
 
+/**
+ * Verifiziert das Laden der Bücherliste sowie die Filterung
+ * über die Titelsuche.
+ */
 test('Bücherliste lädt und Suche nach Titel funktioniert', async ({ page }) => {
   await page.goto('/buecher');
 
