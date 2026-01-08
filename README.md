@@ -46,7 +46,7 @@ Stelle sicher, dass folgende Tools auf deinem System installiert sind:
 1.  **Repository klonen**
 
     ```bash
-    git clone [https://github.com/dein-user/web-anwendung.git](https://github.com/dein-user/web-anwendung.git)
+    git clone https://github.com/dein-user/web-anwendung.git
     cd web-anwendung
     ```
 
