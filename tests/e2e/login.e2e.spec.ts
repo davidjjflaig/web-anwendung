@@ -1,26 +1,34 @@
+/**
+ * End-to-End-Tests für die Login-Funktionalität.
+ *
+ * Prüft sowohl den erfolgreichen Login mit gültigen Zugangsdaten
+ * als auch das Verhalten bei falschen Zugangsdaten.
+ */
+
 import { test, expect } from '@playwright/test';
 
+/**
+ * Verifiziert, dass ein Login mit gültigen Zugangsdaten
+ * zur Bücherübersicht weiterleitet.
+ */
 test('Login mit gültigen Zugangsdaten leitet zur Bücherliste weiter', async ({ page }) => {
   const username = process.env.E2E_USERNAME ?? 'admin';
   const password = process.env.E2E_PASSWORD ?? 'p';
 
   await page.goto('/login');
 
-  // Wait for either the login page to load or for a redirect to the home page
   const landedUrl = await Promise.race([
     page.waitForURL(/\/login$/, { timeout: 5000 }).then(() => '/login'),
     page.waitForURL(/\/$/, { timeout: 5000 }).then(() => '/'),
   ]).catch(() => undefined);
 
   if (landedUrl === '/') {
-    // The server redirected to home (maybe session exists); verify home
     await expect(page.getByText('Bücher suchen')).toBeVisible();
-    return; // already logged in
+    return; 
   }
 
   await expect(page.getByText('Anmelden')).toBeVisible();
 
-  // Fill login fields by selector (fallback if labels are not accessible on the live server)
   const userInput = page.locator('input[type="text"], input:not([type])').first();
   const passInput = page.locator('input[type="password"]').first();
   await userInput.waitFor({ state: 'visible', timeout: 10000 });
@@ -32,6 +40,10 @@ test('Login mit gültigen Zugangsdaten leitet zur Bücherliste weiter', async ({
   await expect(page.getByText('Bücher suchen')).toBeVisible();
 });
 
+/**
+ * Verifiziert, dass ein Login mit ungültigen Zugangsdaten
+ * eine Fehlermeldung anzeigt und auf der Login-Seite bleibt.
+ */
 test('Login mit falschen Zugangsdaten zeigt Fehlermeldung und bleibt auf Login-Seite', async ({
   page,
 }) => {
@@ -42,7 +54,6 @@ test('Login mit falschen Zugangsdaten zeigt Fehlermeldung und bleibt auf Login-S
 
   await expect(page.getByText('Anmelden')).toBeVisible();
 
-  // Fill login using generic selectors in case labels are not accessible on the live server
   const userInput = page.locator('input[type="text"], input:not([type])').first();
   const passInput = page.locator('input[type="password"]').first();
   await userInput.waitFor({ state: 'visible', timeout: 10000 });
