@@ -24,7 +24,7 @@ test('Login mit gültigen Zugangsdaten leitet zur Bücherliste weiter', async ({
 
   if (landedUrl === '/') {
     await expect(page.getByText('Bücher suchen')).toBeVisible();
-    return; 
+    return;
   }
 
   await expect(page.getByText('Anmelden')).toBeVisible();
