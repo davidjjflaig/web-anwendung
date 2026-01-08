@@ -1,3 +1,10 @@
+/**
+ * Seite zum Erstellen eines neuen Buches.
+ *
+ * Stellt ein Formular bereit, validiert Eingaben (z.B. ISBN) und sendet
+ * die Daten an das Backend, um ein Buch anzulegen.
+ */
+
 import { useForm, useFieldArray } from 'react-hook-form';
 import { createBuch, type BuchCreate } from '../API/BuchApi';
 import Cookies from 'js-cookie';
@@ -5,8 +12,19 @@ import { BookLoader } from '../components/BookLoader';
 import { ErrorAlert } from '../components/ErrorAlert';
 import { useState } from 'react';
 
+/**
+ * Regulärer Ausdruck zur groben Validierung von ISBN-10/ISBN-13 Eingaben.
+ */
 const ISBN_REGEX = /^(97(8|9))?[\d-]{9,17}[\dX]$/;
 
+/**
+ * Seite zur Neuerstellung eines Buches.
+ *
+ * Verwendet React Hook Form inkl. FieldArray für Abbildungen und
+ * sendet nach Submit ein BuchCreate-DTO an das Backend.
+ *
+ * @returns React-Seite zur Bucherstellung
+ */
 export default function NewBookPage() {
   type FormModel = Omit<BuchCreate, 'schlagwoerter' | 'datum'> & {
     schlagwoerterInput: string;
@@ -40,6 +58,11 @@ export default function NewBookPage() {
 
   const token = Cookies.get('token') || '';
 
+  /**
+   * Erstellt aus den Formularwerten ein BuchCreate-DTO und sendet es an das Backend.
+   *
+   * @param form Formularwerte
+   */
   const onSubmit = async (form: FormModel) => {
     setLoading(true);
     setError('');
