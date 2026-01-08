@@ -1,3 +1,10 @@
+/**
+ * Bearbeitungsseite für bestehende Bücher.
+ *
+ * Lädt ein Buch anhand der ID aus der URL, füllt ein Formular
+ * mit den vorhandenen Daten und ermöglicht deren Aktualisierung.
+ */
+
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { findById, updateBuch, buchtoBuchPutDto, type BuchPutDto } from '../API/BuchApi';
@@ -6,6 +13,15 @@ import { BookLoader } from '../components/BookLoader';
 import { ErrorAlert } from '../components/ErrorAlert';
 import Cookies from 'js-cookie';
 
+/**
+ * Seite zum Bearbeiten eines bestehenden Buches.
+ *
+ * Verwendet React Hook Form zur Formularverwaltung und
+ * lädt die initialen Buchdaten vom Backend.
+ *
+ * @returns React-Seite zur Buchbearbeitung
+ * @throws Error wenn keine Buch-ID in der URL vorhanden ist
+ */
 export function EditBookPage() {
   const { id } = useParams<{ id: string }>();
   if (!id) {
@@ -25,6 +41,9 @@ export function EditBookPage() {
   const [error, setError] = useState<string>('');
   const token = Cookies.get('token') || '';
 
+  /**
+   * Lädt die Buchdaten vom Backend und setzt die Formularwerte.
+   */
   useEffect(() => {
     async function load() {
       try {
@@ -48,6 +67,11 @@ export function EditBookPage() {
     load();
   }, [buchId, reset]);
 
+  /**
+   * Sendet die aktualisierten Buchdaten an das Backend.
+   *
+   * @param data Formularwerte für das zu aktualisierende Buch
+   */
   const onSubmit = async (data: BuchPutDto) => {
     try {
       await updateBuch({
