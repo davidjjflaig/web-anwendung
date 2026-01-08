@@ -1,19 +1,37 @@
+/**
+ * API-Zugriffsschicht für Buch-Ressourcen.
+ *
+ * Enthält Typdefinitionen sowie Funktionen zum
+ * Laden, Erstellen, Aktualisieren und Löschen von Büchern
+ * über das REST-Backend.
+ */
+
+/**
+ * Basis-URL für alle REST-Anfragen.
+ * Wird über VITE_API_URL konfiguriert oder fällt auf localhost zurück.
+ */
 const baseURL = import.meta.env.VITE_API_URL || 'https://localhost:3000/rest';
 
+/** Mögliche Bucharten. */
 export type BuchArt = 'EPUB' | 'HARDCOVER' | 'PAPERBACK';
 
+/** Titel-Informationen eines Buches. */
 export type Titel = {
   id: number;
   titel: string;
   untertitel: string;
 };
 
+/** Abbildung (z.B. Coverbild) eines Buches. */
 export type Abbildung = {
   id: number;
   beschriftung: string;
   contentType: string;
 };
 
+/**
+ * Vollständiges Buchobjekt, wie es vom Backend geliefert wird.
+ */
 export type Buch = {
   id: number;
   isbn: string;
@@ -30,6 +48,9 @@ export type Buch = {
   abbildungen: Abbildung[];
 };
 
+/**
+ * Paginierte Buchliste.
+ */
 export type BuchPage = {
   content: Buch[];
   page: {
@@ -39,16 +60,31 @@ export type BuchPage = {
     totalPages: number;
   };
 };
+
+/** DTO für das Erstellen eines neuen Titels. */
 export type TitelCreate = Omit<Titel, 'id'>;
+
+/** DTO für das Erstellen einer Abbildung. */
 export type AbbildungCreate = Omit<Abbildung, 'id'>;
 
+/**
+ * DTO für das Erstellen eines neuen Buchs.
+ */
 export type BuchCreate = Omit<Buch, 'id' | 'titel' | 'abbildungen' | 'version'> & {
   titel: TitelCreate;
   abbildungen: AbbildungCreate[];
 };
 
+/** DTO für PUT-Requests (ohne Titel und Abbildungen). */
 export type BuchPutDto = Omit<BuchCreate, 'titel' | 'abbildungen'>;
 
+/**
+ * Lädt ein Buch anhand seiner ID.
+ *
+ * @param id ID des Buchs
+ * @returns Das geladene Buch
+ * @throws Error wenn das Buch nicht geladen werden kann
+ */
 export async function findById(id: number): Promise<Buch> {
   const response = await fetch(`${baseURL}/${id}`);
   if (!response.ok) {
@@ -57,6 +93,13 @@ export async function findById(id: number): Promise<Buch> {
   return await response.json();
 }
 
+/**
+ * Lädt eine paginierte Liste von Büchern.
+ *
+ * @param query Optional: Such- und Filterparameter
+ * @returns Paginierte Buchliste
+ * @throws Error wenn die Bücher nicht geladen werden können
+ */
 export async function find(query: Record<string, string> = {}): Promise<BuchPage> {
   const params = new URLSearchParams(query);
   const response = await fetch(`${baseURL}?${params.toString()}`);
@@ -66,6 +109,13 @@ export async function find(query: Record<string, string> = {}): Promise<BuchPage
   return await response.json();
 }
 
+/**
+ * Ruft ein JWT-Access-Token für einen Benutzer ab.
+ *
+ * @param user Benutzername und Passwort
+ * @returns Access-Token als String
+ * @throws Error wenn die Authentifizierung fehlschlägt
+ */
 export async function getToken(user: { username: string; password: string }): Promise<string> {
   const authURL = baseURL.replace('/rest', '/auth/token');
   const response = await fetch(authURL, {
@@ -80,6 +130,14 @@ export async function getToken(user: { username: string; password: string }): Pr
   return data.access_token;
 }
 
+/**
+ * Erstellt ein neues Buch.
+ *
+ * @param buch Buchdaten
+ * @param token JWT-Access-Token
+ * @returns HTTP-Response des Backends
+ * @throws Error wenn das Buch nicht erstellt werden kann
+ */
 export async function createBuch(buch: BuchCreate, token: string): Promise<Response> {
   const response = await fetch(`${baseURL}`, {
     method: 'POST',
@@ -95,6 +153,15 @@ export async function createBuch(buch: BuchCreate, token: string): Promise<Respo
   return response;
 }
 
+/**
+ * Aktualisiert ein bestehendes Buch.
+ *
+ * Verwendet optimistisches Locking über den If-Match-Header.
+ *
+ * @param data Objekt mit Buch-ID, Änderungsdaten und Token
+ * @returns HTTP-Response des Backends
+ * @throws Error wenn das Buch nicht aktualisiert werden kann
+ */
 export async function updateBuch(data: {
   id: number;
   buch: Partial<BuchPutDto>;
@@ -121,6 +188,14 @@ export async function updateBuch(data: {
   return response;
 }
 
+/**
+ * Löscht ein Buch anhand seiner ID.
+ *
+ * @param id ID des Buchs
+ * @param token JWT-Access-Token
+ * @returns HTTP-Response des Backends
+ * @throws Error wenn das Buch nicht gelöscht werden kann
+ */
 export async function deleteBuch(id: number, token: string): Promise<Response> {
   const response = await fetch(`${baseURL}/${id}`, {
     method: 'DELETE',
@@ -132,6 +207,12 @@ export async function deleteBuch(id: number, token: string): Promise<Response> {
   return response;
 }
 
+/**
+ * Wandelt ein vollständiges Buchobjekt in ein BuchPutDto um.
+ *
+ * @param buch Originales Buch
+ * @returns BuchPutDto für PUT-Requests
+ */
 export function buchtoBuchPutDto(buch: Buch): BuchPutDto {
   return {
     isbn: buch.isbn,
@@ -145,6 +226,11 @@ export function buchtoBuchPutDto(buch: Buch): BuchPutDto {
     schlagwoerter: buch.schlagwoerter,
   };
 }
+
+/**
+ * Fügt einem String doppelte Anführungszeichen hinzu.
+ * Wird z.B. für den If-Match-Header verwendet.
+ */
 function addQuote(text: string): string {
   return `"${text}"`;
 }
