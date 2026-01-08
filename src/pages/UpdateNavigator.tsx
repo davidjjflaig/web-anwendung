@@ -1,10 +1,31 @@
+/**
+ * Navigationsseite zur Auswahl eines Buches für die Bearbeitung.
+ *
+ * Ermöglicht die Eingabe einer Buch-ID und leitet anschließend
+ * zur Bearbeitungsseite des entsprechenden Buches weiter.
+ */
+
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+/**
+ * Seite zur Auswahl eines Buches für die Bearbeitung.
+ *
+ * Leitet nach Eingabe einer Buch-ID zur entsprechenden
+ * Update-Seite weiter.
+ *
+ * @returns React-Seite zur Buchauswahl
+ */
 export function SelectBookPage() {
   const [id, setId] = useState('');
   const navigate = useNavigate();
 
+  /**
+   * Verarbeitet das Absenden des Formulars und navigiert
+   * zur Bearbeitungsseite des ausgewählten Buches.
+   *
+   * @param e Formular-Submit-Event
+   */
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!id) return;
