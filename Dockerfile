@@ -1,3 +1,5 @@
+# Multi-stage Dockerfile zum Bauen und Ausliefern der React-Anwendung mit Nginx
+
 FROM node:20-alpine as build
 WORKDIR /app
 

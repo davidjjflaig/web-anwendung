@@ -1,3 +1,7 @@
+/**
+ * Prettier-Konfiguration für das Projekt.
+ */
+
 export default {
   semi: true,
   singleQuote: true,
