@@ -1,3 +1,10 @@
+/**
+ * Startseite der Anwendung.
+ *
+ * Bietet dem Benutzer eine Übersicht über die wichtigsten Funktionen
+ * und passt verfügbare Aktionen abhängig vom Login-Status an.
+ */
+
 import {
   BookOpenIcon,
   PlusCircleIcon,
@@ -7,6 +14,15 @@ import {
 import { Link } from 'react-router-dom';
 import { ProtectedCard } from '../components/ProtectedCard';
 
+/**
+ * Startseite der Buchanwendung.
+ *
+ * Zeigt Navigationskarten zu den Hauptfunktionen an.
+ * Geschützte Aktionen sind nur für eingeloggte Benutzer verfügbar.
+ *
+ * @param isLoggedIn Aktueller Login-Status
+ * @returns React-Seite für die Startansicht
+ */
 export default function HomePage({ isLoggedIn }: { isLoggedIn: boolean }) {
   return (
     <div className="flex flex-col items-center gap-10">
