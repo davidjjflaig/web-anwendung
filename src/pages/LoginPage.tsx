@@ -1,17 +1,46 @@
+/**
+ * Login-Seite der Anwendung.
+ *
+ * Ermöglicht dem Benutzer die Anmeldung über Benutzername und Passwort
+ * und speichert nach erfolgreichem Login ein Authentifizierungs-Token.
+ */
+
 import { useState } from 'react';
 import Cookies from 'js-cookie';
 import { getToken } from '../API/BuchApi';
 import { useNavigate } from 'react-router-dom';
 
+/**
+ * Props für die LoginPage-Komponente.
+ */
 interface LoginPageProps {
+  /** Callback, das nach erfolgreichem Login aufgerufen wird. */
   onLogin: () => void;
 }
+
+/**
+ * Seite zur Benutzeranmeldung.
+ *
+ * Authentifiziert den Benutzer über das Backend und speichert
+ * das erhaltene JWT-Token im Cookie.
+ *
+ * @param onLogin Callback nach erfolgreichem Login
+ * @returns React-Seite für den Login
+ */
 export default function LoginPage({ onLogin }: LoginPageProps) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  /**
+   * Führt den Login-Vorgang durch.
+   *
+   * Ruft das Backend zur Authentifizierung auf und speichert
+   * bei Erfolg das erhaltene Token im Cookie.
+   *
+   * @param e Formular-Submit-Event
+   */
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
