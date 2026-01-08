@@ -1,22 +1,13 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
-  testDir: './tests/e2e',
-  fullyParallel: true,
-  timeout: 30_000,
+  testDir: './tests/e2e/',
+  testMatch: '**/*.e2e.spec.ts',
   use: {
-    baseURL: 'http://localhost:5173',
+    baseURL: process.env.PW_BASE_URL ?? 'https://swe.flaig.io',
+    browserName: 'chromium',
     headless: true,
-  },
-  projects: [
-    {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
-  ],
-  webServer: {
-    command: 'pnpm dev',
-    port: 5173,
-    reuseExistingServer: !process.env.CI,
+    screenshot: 'only-on-failure',
+    trace: 'on-first-retry',
   },
 });

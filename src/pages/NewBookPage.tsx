@@ -30,7 +30,10 @@ export default function NewBookPage() {
     },
   });
 
-  const { fields, append, remove } = useFieldArray({ control, name: 'abbildungen' });
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'abbildungen',
+  });
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>('');
@@ -60,7 +63,6 @@ export default function NewBookPage() {
           titel: form.titel.titel,
           untertitel: form.titel.untertitel,
         },
-
         abbildungen:
           form.abbildungen?.map((a) => ({
             beschriftung: a.beschriftung,
@@ -84,50 +86,60 @@ export default function NewBookPage() {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 max-w-xl">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="form-control">
-          <label className="label">
+          <label htmlFor="titel" className="label">
             <span className="label-text font-bold">Titel</span>
           </label>
           <input
+            id="titel"
             type="text"
             className="input input-bordered"
             {...register('titel.titel', { required: true })}
           />
         </div>
+
         <div className="form-control">
-          <label className="label">
+          <label htmlFor="untertitel" className="label">
             <span className="label-text font-bold">Untertitel</span>
           </label>
-          <input type="text" className="input input-bordered" {...register('titel.untertitel')} />
+          <input
+            id="untertitel"
+            type="text"
+            className="input input-bordered"
+            {...register('titel.untertitel')}
+          />
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="form-control">
-          <label className="label">
+          <label htmlFor="isbn" className="label">
             <span className="label-text font-bold">ISBN</span>
           </label>
           <input
+            id="isbn"
             type="text"
             className="input input-bordered"
             {...register('isbn', {
               required: true,
-              pattern: {
-                value: ISBN_REGEX,
-                message: 'Ungültige ISBN',
-              },
+              pattern: { value: ISBN_REGEX, message: 'Ungültige ISBN' },
             })}
           />
+          {errors.isbn && (
+            <div className="text-error text-sm mt-1">
+              <span>{errors.isbn.message}</span>
+            </div>
+          )}
         </div>
-        {errors.isbn && (
-          <div className="text-error text-sm mt-1">
-            <span>{errors.isbn.message}</span>
-          </div>
-        )}
+
         <div className="form-control">
-          <label className="label">
+          <label htmlFor="art" className="label">
             <span className="label-text font-bold">Art</span>
           </label>
-          <select className="select select-bordered" {...register('art', { required: true })}>
+          <select
+            id="art"
+            className="select select-bordered"
+            {...register('art', { required: true })}
+          >
             <option value="EPUB">EPUB</option>
             <option value="HARDCOVER">Hardcover</option>
             <option value="PAPERBACK">Paperback</option>
@@ -135,12 +147,14 @@ export default function NewBookPage() {
         </div>
       </div>
 
+      
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="form-control">
-          <label className="label">
+          <label htmlFor="rating" className="label">
             <span className="label-text font-bold">Rating</span>
           </label>
           <input
+            id="rating"
             type="number"
             min={0}
             max={5}
@@ -149,22 +163,26 @@ export default function NewBookPage() {
             {...register('rating', { valueAsNumber: true })}
           />
         </div>
+
         <div className="form-control">
-          <label className="label">
+          <label htmlFor="preis" className="label">
             <span className="label-text font-bold">Preis</span>
           </label>
           <input
+            id="preis"
             type="number"
             step="0.01"
             className="input input-bordered"
             {...register('preis', { valueAsNumber: true, required: true })}
           />
         </div>
+
         <div className="form-control">
-          <label className="label">
+          <label htmlFor="rabatt" className="label">
             <span className="label-text font-bold">Rabatt</span>
           </label>
           <input
+            id="rabatt"
             type="number"
             step="0.01"
             min={0}
@@ -176,69 +194,99 @@ export default function NewBookPage() {
       </div>
 
       <div className="form-control">
-        <label className="label cursor-pointer justify-start gap-4">
-          <input type="checkbox" className="checkbox checkbox-primary" {...register('lieferbar')} />
+        <label htmlFor="lieferbar" className="label cursor-pointer gap-4">
+          <input
+            id="lieferbar"
+            type="checkbox"
+            className="checkbox checkbox-primary"
+            {...register('lieferbar')}
+          />
           <span className="label-text font-bold">Lieferbar</span>
         </label>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="form-control">
-          <label className="label">
+          <label htmlFor="datum" className="label">
             <span className="label-text font-bold">Erscheinungsdatum</span>
           </label>
-          <input type="date" className="input input-bordered" {...register('datum')} />
+          <input
+            id="datum"
+            type="date"
+            className="input input-bordered"
+            {...register('datum')}
+          />
         </div>
+
         <div className="form-control">
-          <label className="label">
+          <label htmlFor="homepage" className="label">
             <span className="label-text font-bold">Homepage</span>
           </label>
-          <input type="url" className="input input-bordered" {...register('homepage')} />
+          <input
+            id="homepage"
+            type="url"
+            className="input input-bordered"
+            {...register('homepage')}
+          />
         </div>
       </div>
 
       <div className="form-control">
-        <label className="label">
-          <span className="label-text font-bold">Schlagwörter (kommagetrennt)</span>
+        <label htmlFor="schlagwoerter" className="label">
+          <span className="label-text font-bold">
+            Schlagwörter (kommagetrennt)
+          </span>
         </label>
-        <input type="text" className="input input-bordered" {...register('schlagwoerterInput')} />
+        <input
+          id="schlagwoerter"
+          type="text"
+          className="input input-bordered"
+          {...register('schlagwoerterInput')}
+        />
       </div>
 
       <div>
         <label className="label">
           <span className="label-text font-bold">Abbildungen</span>
         </label>
+
         {fields.map((field, index) => (
-          <div key={field.id} className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end mb-2">
+          <div
+            key={field.id}
+            className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end mb-2"
+          >
             <div className="form-control">
-              <label className="label">
+              <label htmlFor={`abbildung-beschriftung-${index}`} className="label">
                 <span className="label-text">Beschriftung</span>
               </label>
               <input
+                id={`abbildung-beschriftung-${index}`}
                 className="input input-bordered"
                 {...register(`abbildungen.${index}.beschriftung` as const)}
               />
             </div>
+
             <div className="form-control">
-              <label className="label">
+              <label htmlFor={`abbildung-content-${index}`} className="label">
                 <span className="label-text">Content-Type</span>
               </label>
               <input
+                id={`abbildung-content-${index}`}
                 className="input input-bordered"
                 {...register(`abbildungen.${index}.contentType` as const)}
               />
             </div>
-            <div className="flex gap-2">
-              <button
-                type="button"
-                className="btn btn-sm btn-outline"
-                onClick={() => remove(index)}
-              >
-                Entfernen
-              </button>
-            </div>
+
+            <button
+              type="button"
+              className="btn btn-sm btn-outline"
+              onClick={() => remove(index)}
+            >
+              Entfernen
+            </button>
           </div>
         ))}
+
         <button
           type="button"
           className="btn btn-sm mt-2"

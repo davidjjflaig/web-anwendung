@@ -71,6 +71,25 @@ Stelle sicher, dass folgende Tools auf deinem System installiert sind:
 
 ## 📜 Verfügbare Skripte
 
+E2E-Tests
+
+- Die Playwright E2E-Tests laufen gegen den in `playwright.config.ts` konfigurierten `baseURL`.
+- Um Tests auszuführen, setze (wenn nötig) Umgebungsvariablen für Zugangsdaten:
+  - `E2E_USERNAME` / `E2E_PASSWORD` — generelle Test-Benutzer
+  - `E2E_CREATOR_USERNAME` / `E2E_CREATOR_PASSWORD` — optional: Benutzer, der Bücher anlegen darf
+
+Hinweis: Die Create-Book-Tests verwenden standardmäßig `admin` / `p`, wenn `E2E_CREATOR_USERNAME`/`E2E_CREATOR_PASSWORD` nicht gesetzt sind. Stelle sicher, dass dieser Admin-Account auf dem Testserver existiert und Erstellrechte hat.
+
+Beispiel:
+
+```bash
+# Explizite Creator-Credentials setzen (optional)
+E2E_CREATOR_USERNAME=creator E2E_CREATOR_PASSWORD=secret pnpm exec playwright test
+```
+
+Wenn du keinen Creator-Account hast, lege bitte einen Test-Benutzer auf dem Server an (z. B. über die Admin-Oberfläche oder direkte DB-Migration). Wenn du möchtest, kann ich ein kleines Skript vorschlagen, um einen Benutzer per API anzulegen — sag Bescheid.
+
+
 In der `package.json` sind folgende Befehle definiert:
 
 | Befehl          | Beschreibung                                                     |

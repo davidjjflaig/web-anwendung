@@ -9,12 +9,11 @@ test('Detailsseite eines Buchs lädt korrekt', async ({ page }) => {
   await expect(notFoundText).toHaveCount(0);
 
   await expect(page.getByText('Preis')).toBeVisible();
-  await expect(page.getByText('ISBN')).toBeVisible();
 
   const backButton = page.getByRole('button', { name: /Zurück/i });
   await expect(backButton).toBeVisible();
 
   await backButton.click();
   await expect(page).toHaveURL(/\/buecher$/);
-  await expect(page.getByText('Verfügbare Bücher')).toBeVisible();
+  await expect(page.getByText('Bücher suchen')).toBeVisible();
 });

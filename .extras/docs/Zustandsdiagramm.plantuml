@@ -1,0 +1,20 @@
+
+@startuml Zustandsdiagramm
+[*] --> HomePage : Start
+HomePage --> LoginPage : Logout
+HomePage --> LoginPage : Einloggen
+LoginPage --> HomePage : Login erfolgreich
+LoginPage --> LoginPage : Login fehlgeschlagen
+HomePage --> BooksPage : Bücher anzeigen
+HomePage --> NewBookPage : Neues Buch
+HomePage --> SelectBookPage : Buch zum Bearbeiten auswählen
+BooksPage --> BookDetails : Buch auswählen
+SelectBookPage --> BookUpdatePage : Bearbeiten
+BookUpdatePage --> BookUpdatePage : Speichern (Bestätigung)
+BookUpdatePage --> BookDetails : Abbrechen
+HomePage --> NewBookPage : Neues Buch
+NewBookPage --> NewBookPage : Erstellen (Form reset)
+NewBookPage --> BooksPage : Abbrechen
+Layout --> Layout : Logout (Token entfernt)
+LoginPage --> [*] : Beenden
+@enduml
