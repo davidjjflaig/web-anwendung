@@ -74,7 +74,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 /**
  * Custom Hook zum Zugriff auf den AuthContext.
  *
-   * @returns AuthContext mit Login-Status und Auth-Funktionen
+ * @returns AuthContext mit Login-Status und Auth-Funktionen
  * @throws Error wenn der Hook außerhalb des AuthProviders verwendet wird
  */
 // eslint-disable-next-line react-refresh/only-export-components
