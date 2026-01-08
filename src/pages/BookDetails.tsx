@@ -1,8 +1,25 @@
+/**
+ * Detailansicht für ein einzelnes Buch.
+ *
+ * Lädt Buchdaten anhand der ID aus der URL, zeigt alle relevanten
+ * Informationen an und ermöglicht – bei ausreichender Berechtigung –
+ * das Löschen des Buches.
+ */
+
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { findById, deleteBuch, type Buch } from '../API/BuchApi';
 
+/**
+ * Seite zur Anzeige der Details eines Buches.
+ *
+ * Verwendet die Buch-ID aus den Routenparametern, um die Daten
+ * vom Backend zu laden. Unterstützt Lade- und Fehlerzustände
+ * sowie administrative Aktionen wie das Löschen eines Buches.
+ *
+ * @returns React-Seite für Buchdetails
+ */
 export default function BookDetails() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -13,6 +30,9 @@ export default function BookDetails() {
 
   const isAdmin = !!Cookies.get('token');
 
+  /**
+   * Lädt die Buchdaten vom Backend, sobald sich die Buch-ID ändert.
+   */
   useEffect(() => {
     if (!id) return;
 
@@ -31,10 +51,18 @@ export default function BookDetails() {
     ladeBuch();
   }, [id]);
 
+  /**
+   * Simuliert das Hinzufügen des Buches zum Warenkorb.
+   */
   const handlebuy = async () => {
     alert('In den Warenkorb gelegt!');
   };
 
+  /**
+   * Löscht das aktuell angezeigte Buch nach Benutzerbestätigung.
+   *
+   * Erfordert ein gültiges Authentifizierungs-Token.
+   */
   const handleDelete = async () => {
     if (!buch || !window.confirm(`Möchtest du "${buch.titel.titel}" wirklich löschen?`)) return;
 

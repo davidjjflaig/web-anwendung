@@ -1,5 +1,16 @@
+/**
+ * UI-Komponente für Ladezustände im Buch-Kontext.
+ */
+
 import { BookOpenIcon } from '@heroicons/react/24/outline';
 
+/**
+ * Zeigt einen Ladezustand für Buchdaten an.
+ *
+ * Wird verwendet, während Buchinformationen vom Backend geladen werden.
+ *
+ * @returns React-Komponente mit Icon, Spinner und Hinweistext
+ */
 export function BookLoader() {
   return (
     <div className="flex flex-col items-center justify-center min-h-[200px] gap-4">

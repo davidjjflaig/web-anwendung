@@ -1,14 +1,32 @@
+/**
+ * Übersichtsseite zur Suche und Anzeige von Büchern.
+ *
+ * Ermöglicht das Filtern von Büchern nach verschiedenen Kriterien
+ * und zeigt die Ergebnisse paginiert an.
+ */
+
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { find, type BuchPage } from '../API/BuchApi';
 import { BookLoader } from '../components/BookLoader';
 
+/**
+ * Seite zur Suche und Anzeige einer Buchliste.
+ *
+ * Unterstützt Filter wie Titel, Art, Lieferbarkeit, Rating und Preis
+ * sowie eine paginierte Darstellung der Ergebnisse.
+ *
+ * @returns React-Seite für die Buchsuche
+ */
 export default function BooksPage() {
   const navigate = useNavigate();
   const [data, setData] = useState<BuchPage | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  /**
+   * Filterkriterien für die Buchsuche.
+   */
   const [filters, setFilters] = useState({
     titel: '',
     art: '',
@@ -17,6 +35,11 @@ export default function BooksPage() {
     preisMax: undefined as number | undefined,
   });
 
+  /**
+   * Lädt Buchdaten vom Backend anhand der aktuellen Filtereinstellungen.
+   *
+   * @param pageTarget Zielseite für die Pagination (1-basiert)
+   */
   const ladeDaten = async (pageTarget: number = 1) => {
     setLoading(true);
     setError('');
