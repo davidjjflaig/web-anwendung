@@ -46,7 +46,7 @@ export default function BooksPage() {
     try {
       const query: Record<string, string> = {
         page: pageTarget.toString(),
-        size: '5',
+        size: '6',
       };
 
       if (filters.titel) query.titel = filters.titel;
