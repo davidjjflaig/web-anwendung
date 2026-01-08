@@ -1,6 +1,21 @@
+/**
+ * Fallback-Seite für nicht gefundene Routen (404).
+ *
+ * Wird angezeigt, wenn der Benutzer eine unbekannte URL aufruft.
+ */
+
 import { Link } from 'react-router-dom';
 import { BookOpenIcon } from '@heroicons/react/24/outline';
 
+/**
+ * 404-Seite der Anwendung.
+ *
+ * Informiert den Benutzer darüber, dass die angeforderte Seite
+ * nicht existiert, und bietet Navigationsmöglichkeiten zurück
+ * zur Startseite oder zur Bücherliste.
+ *
+ * @returns React-Seite für nicht gefundene Routen
+ */
 export default function NotFoundPage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
