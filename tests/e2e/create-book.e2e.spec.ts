@@ -1,6 +1,5 @@
 import { expect, test } from '@playwright/test';
 
-
 test('Create a new book', async ({ page }) => {
   await page.goto('/buecher/neu');
 
@@ -18,6 +17,5 @@ test('Create a new book', async ({ page }) => {
 
   await page.getByRole('button', { name: 'Buch erstellen' }).click();
 
-  
   await expect(page.getByText('Buch erstellt ✅')).toBeVisible();
 });

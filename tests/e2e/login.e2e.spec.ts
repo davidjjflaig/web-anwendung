@@ -27,10 +27,7 @@ test('Login mit gültigen Zugangsdaten leitet zur Bücherliste weiter', async ({
   await userInput.fill(username);
   await passInput.fill(password);
 
-  await Promise.all([
-    page.waitForURL(/\/$/),
-    page.getByRole('button', { name: 'Login' }).click(),
-  ]);
+  await Promise.all([page.waitForURL(/\/$/), page.getByRole('button', { name: 'Login' }).click()]);
 
   await expect(page.getByText('Bücher suchen')).toBeVisible();
 });

@@ -89,7 +89,6 @@ E2E_CREATOR_USERNAME=creator E2E_CREATOR_PASSWORD=secret pnpm exec playwright te
 
 Wenn du keinen Creator-Account hast, lege bitte einen Test-Benutzer auf dem Server an (z. B. über die Admin-Oberfläche oder direkte DB-Migration). Wenn du möchtest, kann ich ein kleines Skript vorschlagen, um einen Benutzer per API anzulegen — sag Bescheid.
 
-
 In der `package.json` sind folgende Befehle definiert:
 
 | Befehl          | Beschreibung                                                     |

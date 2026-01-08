@@ -147,7 +147,6 @@ export default function NewBookPage() {
         </div>
       </div>
 
-      
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="form-control">
           <label htmlFor="rating" className="label">
@@ -210,12 +209,7 @@ export default function NewBookPage() {
           <label htmlFor="datum" className="label">
             <span className="label-text font-bold">Erscheinungsdatum</span>
           </label>
-          <input
-            id="datum"
-            type="date"
-            className="input input-bordered"
-            {...register('datum')}
-          />
+          <input id="datum" type="date" className="input input-bordered" {...register('datum')} />
         </div>
 
         <div className="form-control">
@@ -233,9 +227,7 @@ export default function NewBookPage() {
 
       <div className="form-control">
         <label htmlFor="schlagwoerter" className="label">
-          <span className="label-text font-bold">
-            Schlagwörter (kommagetrennt)
-          </span>
+          <span className="label-text font-bold">Schlagwörter (kommagetrennt)</span>
         </label>
         <input
           id="schlagwoerter"
@@ -251,10 +243,7 @@ export default function NewBookPage() {
         </label>
 
         {fields.map((field, index) => (
-          <div
-            key={field.id}
-            className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end mb-2"
-          >
+          <div key={field.id} className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end mb-2">
             <div className="form-control">
               <label htmlFor={`abbildung-beschriftung-${index}`} className="label">
                 <span className="label-text">Beschriftung</span>
@@ -277,11 +266,7 @@ export default function NewBookPage() {
               />
             </div>
 
-            <button
-              type="button"
-              className="btn btn-sm btn-outline"
-              onClick={() => remove(index)}
-            >
+            <button type="button" className="btn btn-sm btn-outline" onClick={() => remove(index)}>
               Entfernen
             </button>
           </div>
